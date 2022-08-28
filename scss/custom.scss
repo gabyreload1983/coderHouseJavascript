@@ -1,0 +1,19 @@
+// Custom.scss
+// Option A: Include all of Bootstrap
+
+// Include any default variable overrides here (though functions won't be available)
+@import "../scss/misc/variables";
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+// Then add additional custom code here
+
+@import "../scss/partials/header";
+@import "../scss/partials/footer";
+
+@import "../scss/views/home";
+@import "../scss/views/ofertas";
+@import "../scss/views/productos";
+@import "../scss/views/asistenciaTecnica";
+@import "../scss/views/contacto";
+@import "../scss/views/signup";

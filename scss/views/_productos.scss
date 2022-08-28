@@ -1,0 +1,10 @@
+#productos {
+  .nav-categories {
+    border-radius: 15px;
+
+    &:hover {
+      border-radius: 15px;
+      background-color: $primary;
+    }
+  }
+}

@@ -1,0 +1,38 @@
+#main-banner {
+  height: 91vh;
+
+  .img-main {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  #searchProducts {
+    width: 60vw;
+    max-width: 350px;
+    opacity: 0.3;
+    border: 0;
+  }
+
+  #searchProducts:focus {
+    opacity: 0.8;
+
+    &:focus-visible {
+      outline: unset;
+    }
+  }
+}
+
+.main-destacados {
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  .img-section {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}
