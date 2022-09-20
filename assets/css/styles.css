@@ -8414,37 +8414,33 @@ footer .nav-link:hover {
     width: 100%;
     object-fit: cover; }
 
-#ofertas .card {
+#containerProducts .card {
   height: 100%; }
-  #ofertas .card .bi-oferta {
-    fill: #ec811c;
-    top: -12px;
-    right: 25px; }
-  #ofertas .card .card-img-top {
-    height: 100%;
-    width: 100%;
-    object-fit: cover; }
 
-#productos .nav-categories {
+#containerProducts .nav-categories {
   border-radius: 15px; }
-  #productos .nav-categories:hover {
+  #containerProducts .nav-categories:hover {
     border-radius: 15px;
-    background-color: #ec811c; }
+    background-color: #ec811c;
+    color: #fff; }
 
-#asistencia-tecnica {
-  background-image: url("../../assets/images/asistenciaRemota.jpg");
+#containerProducts .nav-categories-active {
+  background-color: #ec811c; }
+
+#technicalAssistance {
+  background-image: url("../../assets/images/technicalAssistance.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover; }
-  #asistencia-tecnica .form-asistencia {
+  #technicalAssistance .formTechnicalAssistance {
     opacity: 0.8; }
 
-#contacto {
-  background-image: url("../../assets/images/contacto.jpg");
+#contact {
+  background-image: url("../../assets/images/contact.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover; }
-  #contacto .form-contacto {
+  #contact .formContact {
     opacity: 0.8; }
 
 #signup {
@@ -8452,5 +8448,5 @@ footer .nav-link:hover {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover; }
-  #signup .form-signup {
+  #signup .formSignup {
     opacity: 0.8; }
