@@ -7,9 +7,7 @@ class Contact {
     this.message = user.message;
   }
   sendMessage() {
-    alert(`
-    ${this.firstName} ${this.lastName}, tu consulta se envio con exito. 
-    Nos comunicaremos con usted a la brevedad`);
+    return true;
   }
 }
 
@@ -20,7 +18,13 @@ const contact = () => {
     email: prompt("Ingrese su email"),
     message: prompt("Ingrese su consulta"),
   });
-  contact.sendMessage();
+  if (contact.sendMessage()) {
+    const messegeResponse = document.querySelector("#messegeResponse");
+    messegeResponse.classList.remove("d-none");
+    messegeResponse.innerHTML = `
+     ${contact.firstName} ${contact.lastName}, recibimos tu mensaje con exito. 
+     Nos comunicaremos con usted a la brevedad`;
+  }
 };
 
 contact();

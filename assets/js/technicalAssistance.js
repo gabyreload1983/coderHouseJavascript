@@ -7,9 +7,7 @@ class Ticket {
     this.message = user.message;
   }
   createTicket() {
-    alert(`
-    ${this.firstName} ${this.lastName}, tu ticket se genero con exito. 
-    Nos comunicaremos con usted a la brevedad`);
+    return true;
   }
 }
 
@@ -21,7 +19,13 @@ const technicalAssistance = () => {
     email: prompt("Ingrese su email"),
     message: prompt("Detalle la falla"),
   });
-  ticket.createTicket();
+  if (ticket.createTicket()) {
+    const messegeResponse = document.querySelector("#messegeResponse");
+    messegeResponse.classList.remove("d-none");
+    messegeResponse.innerHTML = `
+     ${ticket.firstName} ${ticket.lastName}, tu ticket se genero con exito. 
+     Nos comunicaremos con usted a la brevedad`;
+  }
 };
 
 technicalAssistance();
