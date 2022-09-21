@@ -8417,14 +8417,14 @@ footer .nav-link:hover {
 #containerProducts .card {
   height: 100%; }
 
-#containerProducts .nav-categories {
+#containerProducts .navCategories {
   border-radius: 15px; }
-  #containerProducts .nav-categories:hover {
+  #containerProducts .navCategories:hover {
     border-radius: 15px;
     background-color: #ec811c;
     color: #fff; }
 
-#containerProducts .nav-categories-active {
+#containerProducts .navCategoriesActive {
   background-color: #ec811c; }
 
 #technicalAssistance {
