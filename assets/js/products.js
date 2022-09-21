@@ -3,7 +3,11 @@ const dataBaseCategories = [
   { id: 1, description: "Placas Madre" },
   { id: 13, description: "Memorias RAM" },
   { id: 66, description: "Discos" },
+  { id: 31, description: "Notebooks" },
+  { id: 54, description: "Celulares" },
 ];
+
+const dataBaseDollar = 145;
 
 dataBaseCategories.sort((a, b) => {
   if (a.description > b.description) {
@@ -16,6 +20,24 @@ dataBaseCategories.sort((a, b) => {
 });
 
 const dataBaseProducts = [
+  {
+    id: 810048,
+    description: "CEL XIAOMI REDMI NOTE 9 4GB 128GB",
+    brand: "XIAOMI",
+    categorie: 54,
+    price: 282.73,
+    stock: 2,
+    offer: false,
+  },
+  {
+    id: 811726,
+    description: "CEL SAMSUNG A32 4GB 128GB",
+    brand: "SAMSUNG",
+    categorie: 54,
+    price: 290.39,
+    stock: 3,
+    offer: true,
+  },
   {
     id: 811319,
     description: "CPU AMD ATHLON 300GE AM4 - SIN COOLER",
@@ -106,9 +128,43 @@ const dataBaseProducts = [
     stock: 19,
     offer: false,
   },
+  {
+    id: 811594,
+    description: "NOTEBOOK 15.6 ASUS R565E I5-1135G7",
+    brand: "ASUS",
+    categorie: 31,
+    price: 850.6,
+    stock: 2,
+    offer: false,
+  },
+  {
+    id: 880948,
+    description: "NOTEBOOK 15.6 LENOVO 15IHU6 GAMING I5-11300H",
+    brand: "LENOVO",
+    categorie: 31,
+    price: 953.5,
+    stock: 1,
+    offer: false,
+  },
+  {
+    id: 811345,
+    description: "NOTEBOOK 10.1 LENOVO IDEAPAD D330",
+    brand: "LENOVO",
+    categorie: 31,
+    price: 230.0,
+    stock: 4,
+    offer: true,
+  },
+  {
+    id: 6500,
+    description: "NOTEBOOK 14 LENOVO LN14W A6-9220C 128SSD 4GB WIN10",
+    brand: "LENOVO",
+    categorie: 31,
+    price: 465.5,
+    stock: 2,
+    offer: false,
+  },
 ];
-
-const dataBaseDollar = 145;
 
 class Product {
   constructor(product, dollar) {
@@ -120,12 +176,14 @@ class Product {
     this.stock = product.stock;
     this.offer = product.offer;
   }
-  checkId(id) {
-    return this.id === id;
-  }
   addTax() {
     return (this.price * 1.105).toFixed(2);
   }
+}
+
+const products = [];
+for (const product of dataBaseProducts) {
+  products.push(new Product(product, dataBaseDollar));
 }
 
 const createListProducts = (products, categorie) => {
@@ -147,6 +205,7 @@ const createListProducts = (products, categorie) => {
       />
     </a>
     <div class="card-body d-flex flex-column justify-content-end">
+      <strong>CODIGO: ${product.id}</strong>
       <h5 class="card-title">
         ${product.description}
       </h5>
@@ -183,17 +242,22 @@ const creatListCategories = (categories) => {
   for (let categorie of categories) {
     let li = document.createElement("li");
     li.className = "nav-item";
-    li.innerHTML = `<a class="nav-link nav-categories p-2 mb-2" href="#" id="categorie-${categorie.id}">${categorie.description}</a>`;
+    li.innerHTML = `<a class="nav-link navCategories p-2 mb-2" href="#" id="categorie-${categorie.id}">${categorie.description}</a>`;
     listCategories.append(li);
   }
 };
 
-const products = [];
-for (const product of dataBaseProducts) {
-  products.push(new Product(product, dataBaseDollar));
-}
+const selectCategorie = (categorie) => {
+  const selected = document.querySelector(`#categorie-${categorie}`);
+  selected.classList.add("navCategoriesActive");
 
-creatListCategories(dataBaseCategories);
+  const navCategories = document.querySelectorAll(".navCategories");
+  for (const nav of navCategories) {
+    if (nav.id !== `categorie-${categorie}`) {
+      nav.classList.remove("navCategoriesActive");
+    }
+  }
+};
 
 const menu = (options) => {
   let option = Number(prompt(options));
@@ -203,12 +267,15 @@ const menu = (options) => {
   return option;
 };
 
+creatListCategories(dataBaseCategories);
+
 let menuFilter = `
-  FILTRAR BUSQUEDA POR CODIGO:`;
+FILTRAR BUSQUEDA POR CODIGO:`;
 for (const option of dataBaseCategories) {
   menuFilter += `
-    ${option.id} - ${option.description}`;
+  ${option.description} : ${option.id}`;
 }
 
 let categorie = menu(menuFilter);
 createListProducts(products, categorie);
+selectCategorie(categorie);
