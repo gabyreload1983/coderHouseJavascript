@@ -8443,6 +8443,15 @@ footer .nav-link:hover {
   #contact .formContact {
     opacity: 0.8; }
 
+#login {
+  background-image: url("../../assets/images/login.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 60vh; }
+  #login .formLogin {
+    opacity: 0.8; }
+
 #signup {
   background-image: url("../../assets/images/signup.jpg");
   background-position: center;

@@ -30,7 +30,7 @@ const login = () => {
     (user) => user.email === email && password === user.password
   );
   if (user) {
-    alert(`Bienvenido ${user.name}`);
+    alert(`Bienvenido ${user.firstName}`);
   } else {
     alert(`Datos incorrectos`);
     const response = Number(
