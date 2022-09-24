@@ -3872,7 +3872,7 @@ textarea.form-control-lg {
   --bs-list-group-item-padding-y: 0.5rem;
   --bs-list-group-action-color: #495057;
   --bs-list-group-action-hover-color: #495057;
-  --bs-list-group-action-hover-bg: #f8f9fa;
+  --bs-list-group-action-hover-bg: #ec811c;
   --bs-list-group-action-active-color: #212529;
   --bs-list-group-action-active-bg: #e9ecef;
   --bs-list-group-disabled-color: #6c757d;
@@ -8389,27 +8389,52 @@ footer .bi:hover {
 footer .nav-link:hover {
   color: #ec811c; }
 
-#main-banner {
+#main #searchList {
+  top: 70px;
+  width: 60vw;
+  max-width: 400px;
+  border: 0;
+  opacity: 0.5;
+  background-color: #fff;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto; }
+
+#main #productCard {
+  top: 10px;
+  max-width: 700px;
+  border: 0;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 5;
+  padding: 15px; }
+  #main #productCard .imgCart {
+    width: 100%; }
+
+#main #main-banner {
   height: 91vh; }
-  #main-banner .img-main {
+  #main #main-banner .img-main {
     height: 100%;
     width: 100%;
     object-fit: cover; }
-  #main-banner #searchProducts {
+  #main #main-banner #searchProducts {
     width: 60vw;
-    max-width: 350px;
+    max-width: 400px;
     opacity: 0.3;
     border: 0; }
-  #main-banner #searchProducts:focus {
+  #main #main-banner #searchProducts:focus {
     opacity: 0.8; }
-    #main-banner #searchProducts:focus:focus-visible {
+    #main #main-banner #searchProducts:focus:focus-visible {
       outline: unset; }
 
-.main-destacados {
+#main .main-destacados {
   opacity: 0.7; }
-  .main-destacados:hover {
+  #main .main-destacados:hover {
     opacity: 1; }
-  .main-destacados .img-section {
+  #main .main-destacados .img-section {
     height: 100%;
     width: 100%;
     object-fit: cover; }
@@ -8426,6 +8451,11 @@ footer .nav-link:hover {
 
 #containerProducts .navCategoriesActive {
   background-color: #ec811c; }
+
+#containerProducts .form-select {
+  width: 200px;
+  margin-left: auto;
+  margin-bottom: 30px; }
 
 #technicalAssistance {
   background-image: url("../../assets/images/technicalAssistance.jpg");
