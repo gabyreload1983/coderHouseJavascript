@@ -156,3 +156,27 @@ export const dataBaseProducts = [
     offer: true,
   },
 ];
+
+export const dataBaseUsers = [
+  {
+    email: "gaby@gmail.com",
+    password: "123",
+    firstName: "Gabriel",
+    lastName: "Godoy",
+    celphone: 147,
+  },
+  {
+    email: "lisa@gmail.com",
+    password: "456",
+    firstName: "Lisa",
+    lastName: "Godoy",
+    celphone: 258,
+  },
+  {
+    email: "pilar@gmail.com",
+    password: "789",
+    firstName: "Pilar",
+    lastName: "Mugica",
+    celphone: 369,
+  },
+];

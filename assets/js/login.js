@@ -1,45 +1,24 @@
-const dataBaseUsers = [
-  {
-    email: "gaby@gmail.com",
-    password: "123",
-    firstName: "Gabriel",
-    lastName: "Godoy",
-    celphone: 147,
-  },
-  {
-    email: "lisa@gmail.com",
-    password: "456",
-    firstName: "Lisa",
-    lastName: "Godoy",
-    celphone: 258,
-  },
-  {
-    email: "pilar@gmail.com",
-    password: "789",
-    firstName: "Pilar",
-    lastName: "Mugica",
-    celphone: 369,
-  },
-];
+import { dataBaseUsers } from "./dataBase.js";
 
-const login = () => {
-  const email = prompt("Ingrese su email");
-  const password = prompt("Ingrese su password");
-
+const checkUser = (credentials) => {
   const user = dataBaseUsers.find(
-    (user) => user.email === email && password === user.password
+    (user) =>
+      user.email === credentials.email && user.password === credentials.password
   );
-  if (user) {
-    alert(`Bienvenido ${user.firstName}`);
-  } else {
-    alert(`Datos incorrectos`);
-    const response = Number(
-      prompt(`
-    1 - Reintentar
-    Cualquier tecla para salir`)
-    );
-    if (response === 1) login();
-  }
+
+  return user;
 };
 
-login();
+const formLogin = document.querySelector("#formLogin");
+formLogin.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const credentials = { email: e.target[0].value, password: e.target[1].value };
+  const user = checkUser(credentials);
+  if (user) {
+    const userName = document.querySelector("#userName");
+    userName.innerText = user.firstName;
+    e.target.reset();
+  } else {
+    console.log("datos incorrectos");
+  }
+});

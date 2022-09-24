@@ -8473,13 +8473,13 @@ footer .nav-link:hover {
   #contact .formContact {
     opacity: 0.8; }
 
-#login {
+#containerLogin {
   background-image: url("../../assets/images/login.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 60vh; }
-  #login .formLogin {
+  #containerLogin .formLogin {
     opacity: 0.8; }
 
 #signup {
