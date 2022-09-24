@@ -100,32 +100,7 @@
           </div>
         </div>
       </nav>
-    </header>
-
-    <main>
-      <div class="container-fluid bg-secondary py-5">
-        <div class="row justify-content-center" id="containerProducts">
-          <div class="col-2 d-none d-md-block">
-            <h3>Categorias</h3>
-            <ul
-              class="navbar-nav me-auto mb-2 mb-lg-0"
-              id="listCategories"
-            ></ul>
-          </div>
-          <div class="col-10">
-            <select
-              id="orderProductsByPrice"
-              class="form-select form-select-sm"
-              aria-label="Default select example"
-            >
-              <option selected value="ASC">Menor a mayor precio</option>
-              <option value="DES">Mayor a menor precio</option>
-            </select>
-            <div class="row" id="listProducts"></div>
-          </div>
-        </div>
-      </div>
-
+      <!-- cart -->
       <div
         class="modal fade modal-lg"
         id="cartModal"
@@ -166,6 +141,31 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-primary">Comprar</button>
             </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="container-fluid bg-secondary py-5">
+        <div class="row justify-content-center" id="containerProducts">
+          <div class="col-2 d-none d-md-block">
+            <h3>Categorias</h3>
+            <ul
+              class="navbar-nav me-auto mb-2 mb-lg-0"
+              id="listCategories"
+            ></ul>
+          </div>
+          <div class="col-10">
+            <select
+              id="orderProductsByPrice"
+              class="form-select form-select-sm"
+              aria-label="Default select example"
+            >
+              <option selected value="ASC">Menor a mayor precio</option>
+              <option value="DES">Mayor a menor precio</option>
+            </select>
+            <div class="row" id="listProducts"></div>
           </div>
         </div>
       </div>
