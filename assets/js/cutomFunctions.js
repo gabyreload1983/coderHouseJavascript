@@ -107,7 +107,7 @@ const selectedCategorie = (categorieId) => {
   }
 };
 
-const addCart = (productId, products) => {
+export const addCart = (productId, products) => {
   const exists = cart.find((product) => product.id === productId);
   if (exists) {
     const index = cart.indexOf(exists);
@@ -122,7 +122,7 @@ const addCart = (productId, products) => {
   cartItem.innerHTML = cart.length;
 };
 
-const removeCart = (productId) => {
+export const removeCart = (productId) => {
   const item = cart.find((product) => product.id === productId);
   const index = cart.indexOf(item);
   cart.splice(index, 1);
