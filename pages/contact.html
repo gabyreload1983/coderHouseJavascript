@@ -152,7 +152,7 @@
           <div class="row justify-content-center">
             <div class="col-lg-6 bg-secondary rounded p-3 formContact">
               <h2 class="text-center">Contactanos</h2>
-              <form>
+              <form id="formContact">
                 <div class="mb-3">
                   <label for="firtsName" class="form-label text-white"
                     >Nombre</label
@@ -195,8 +195,14 @@
                     rows="6"
                   ></textarea>
                 </div>
-                <div class="d-flex justify-content-center">
-                  <button type="submit" class="btn btn-primary">Enviar</button>
+                <div class="d-flex">
+                  <button type="submit" class="btn btn-primary me-3">
+                    Enviar
+                  </button>
+                  <div
+                    class="spinner-border text-primary visually-hidden"
+                    role="status"
+                  ></div>
                 </div>
               </form>
             </div>
