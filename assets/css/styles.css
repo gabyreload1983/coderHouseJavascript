@@ -8457,6 +8457,9 @@ footer .nav-link:hover {
   margin-left: auto;
   margin-bottom: 30px; }
 
+#containerProducts .cardIamge {
+  cursor: pointer; }
+
 #technicalAssistance {
   background-image: url("../../assets/images/technicalAssistance.jpg");
   background-position: center;

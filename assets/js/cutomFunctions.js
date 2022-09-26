@@ -22,14 +22,12 @@ export const createListProducts = (products, selectedCategory = false) => {
       div.className = "col-12 col-md-6 col-lg-3 mb-3";
       div.innerHTML = `
     <div class="card border border-primary">
-      <a href="#">
-        <img
-          src="../assets/images/products/${product.id}-1.jpg"
-          class="card-img-top"
-          alt="..."
-          id="image-${product.id}"
-        />
-      </a>
+      <img
+        src="../assets/images/products/${product.id}-1.jpg"
+        class="cardIamge"
+        alt="..."
+        id="image-${product.id}"
+      />
       <div class="card-body d-flex flex-column justify-content-end">
         <strong>CODIGO: ${product.id}</strong>
         <h5 class="card-title">
@@ -69,9 +67,7 @@ export const createListProducts = (products, selectedCategory = false) => {
 
       let image = document.querySelector(`#image-${product.id}`);
       image.addEventListener("click", (e) => {
-        const imageId = e.target.id.slice(6);
-
-        console.log(imageId);
+        console.log("Falta hacer zomm", product.id);
       });
     }
   }
