@@ -44,8 +44,9 @@ orderProductsByPrice.addEventListener("change", (e) => {
   if (selectedCategorie !== null) {
     const selectedCategorieId = Number(selectedCategorie.id.slice(10));
     createListProducts(products, selectedCategorieId);
+  } else {
+    createListProducts(products);
   }
-  createListProducts(products);
 });
 
 const cartLink = document.querySelector("#cartLink");
