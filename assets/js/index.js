@@ -1,5 +1,70 @@
 import { dataBaseDollar, dataBaseProducts } from "./dataBase.js";
-import { addCart, removeCart, showCart } from "./cutomFunctions.js";
+
+const cartLink = document.querySelector("#cartLink");
+const cartCount = document.querySelector("#cartCount");
+const cartTotal = document.querySelector("#cartTotal");
+const cartModalBody = document.querySelector("#cartTbody");
+const productCard = document.querySelector("#productCard");
+const searchProducts = document.querySelector("#searchProducts");
+const searchList = document.querySelector("#searchList");
+
+const products = [];
+const cart = [];
+
+const addCart = (productId) => {
+  const exists = cart.find((product) => product.id === productId);
+  if (exists) {
+    const index = cart.indexOf(exists);
+    cart[index].quantity++;
+  } else {
+    const product = products.find((product) => product.id === productId);
+    product.quantity = 1;
+    cart.push(product);
+  }
+
+  cartCount.innerHTML = cart.length;
+};
+
+const removeCart = (productId) => {
+  const item = cart.find((product) => product.id === productId);
+  const index = cart.indexOf(item);
+  cart.splice(index, 1);
+  showCart(cart);
+
+  cartCount.innerHTML = cart.length;
+};
+
+const showCart = () => {
+  cartModalBody.innerHTML = "";
+  cart.forEach((product) => {
+    const tr = document.createElement("tr");
+
+    tr.innerHTML = `
+        <th>${product.quantity}</th>
+        <td>${product.description}</td>
+        <td>$${product.addTax()}</td>
+        <td> <button type="button" class="btn btn-outline-danger" id="removeProduct${
+          product.id
+        }">X</button></td>
+      `;
+    cartModalBody.append(tr);
+
+    const removeProduct = document.querySelector(`#removeProduct${product.id}`);
+    removeProduct.addEventListener("click", () => removeCart(product.id));
+  });
+
+  const total = cart
+    .reduce((acc, prod) => acc + prod.addTax() * prod.quantity, 0)
+    .toFixed(2);
+
+  cartTotal.innerHTML = `$${total}`;
+};
+
+const searchProductsByDescription = (description) => {
+  return products.filter((product) =>
+    product.description.includes(description)
+  );
+};
 
 class Product {
   constructor(product, dollar) {
@@ -16,19 +81,16 @@ class Product {
   }
 }
 
-const products = [];
 for (const product of dataBaseProducts) {
   products.push(new Product(product, dataBaseDollar));
 }
 
-const searchProducts = document.querySelector("#searchProducts");
 searchProducts.addEventListener("input", (e) => {
-  const searchList = document.querySelector("#searchList");
+  const keyWords = e.target.value.length;
   searchList.innerHTML = "";
-  if (e.target.value.length > 2) {
-    const productsFilter = products.filter((product) =>
-      product.description.includes(e.target.value.toUpperCase())
-    );
+  if (keyWords > 2) {
+    const description = e.target.value.toUpperCase();
+    const productsFilter = searchProductsByDescription(description);
 
     for (const product of productsFilter) {
       let li = document.createElement("li");
@@ -40,11 +102,9 @@ searchProducts.addEventListener("input", (e) => {
       searchList.append(li);
 
       let linkItem = document.querySelector(`#item-${product.id}`);
-      linkItem.addEventListener("click", (e) => {
-        const selectedId = Number(e.target.id.slice(5));
-        const product = products.find((product) => product.id === selectedId);
+      linkItem.addEventListener("click", () => {
+        const selectedProduct = productsFilter.find((p) => p.id === product.id);
 
-        const productCard = document.querySelector("#productCard");
         productCard.classList.remove("d-none");
         productCard.innerHTML = `
         <div
@@ -52,14 +112,14 @@ searchProducts.addEventListener("input", (e) => {
         >
           <button
             class="btn btn-sm btn-outline-danger position-absolute mt-2 me-2 top-0 end-0"
-            id="close-${product.id}"
+            id="close-${selectedProduct.id}"
           >
             x
           </button>
           <div class="row g-0">
             <div class="col-12 col-lg-6">
               <img
-                src="./assets/images/products/${product.id}-1.jpg"
+                src="./assets/images/products/${selectedProduct.id}-1.jpg"
                 alt="..."
                 class="imgCart"
               />
@@ -68,18 +128,18 @@ searchProducts.addEventListener("input", (e) => {
               class="col-12 col-lg-6 d-flex flex-column justify-content-around"
             >
               <div class="card-body">
-                <h5 class="card-title">${product.description}</h5>
-                <p class="card-text">$7600</p>
+                <h5 class="card-title">${selectedProduct.description}</h5>
+                <p class="card-text">$${selectedProduct.addTax()}</p>
                 <p class="card-text">
                   <small class="text-muted"
-                    >stock: ${product.stock}</small
+                    >stock: ${selectedProduct.stock}</small
                   >
                 </p>
               </div>
 
               <button
                 class="btn btn-primary d-flex justify-content-center align-items-center ms-auto"
-                id="add-${product.id}"
+                id="add-${selectedProduct.id}"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -102,12 +162,12 @@ searchProducts.addEventListener("input", (e) => {
         </div>
       `;
 
-        const button = document.querySelector(`#add-${product.id}`);
-        button.addEventListener("click", () => {
-          addCart(product.id, products);
+        const addProduct = document.querySelector(`#add-${selectedProduct.id}`);
+        addProduct.addEventListener("click", () => {
+          addCart(selectedProduct.id);
         });
 
-        const close = document.querySelector(`#close-${product.id}`);
+        const close = document.querySelector(`#close-${selectedProduct.id}`);
         close.addEventListener("click", (e) => {
           productCard.innerHTML = "";
           productCard.classList.add("d-none");
@@ -123,5 +183,4 @@ searchProducts.addEventListener("input", (e) => {
   }
 });
 
-const cartLink = document.querySelector("#cartLink");
 cartLink.addEventListener("click", () => showCart());
