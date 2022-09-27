@@ -6,7 +6,7 @@ class Product {
     this.id = product.id;
     this.description = product.description;
     this.brand = product.brand;
-    this.categorie = product.categorie;
+    this.category = product.category;
     this.price = product.price * dollar;
     this.stock = product.stock;
     this.quantity = 0;
@@ -59,7 +59,7 @@ searchProducts.addEventListener("input", (e) => {
           <div class="row g-0">
             <div class="col-12 col-lg-6">
               <img
-                src="../assets/images/products/${product.id}-1.jpg"
+                src="./assets/images/products/${product.id}-1.jpg"
                 alt="..."
                 class="imgCart"
               />

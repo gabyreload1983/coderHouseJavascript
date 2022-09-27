@@ -15,7 +15,7 @@ class Product {
     this.id = product.id;
     this.description = product.description;
     this.brand = product.brand;
-    this.categorie = product.categorie;
+    this.category = product.category;
     this.price = product.price * dollar;
     this.stock = product.stock;
     this.quantity = 0;
@@ -39,11 +39,11 @@ createListProducts(products);
 
 const orderProductsByPrice = document.querySelector("#orderProductsByPrice");
 orderProductsByPrice.addEventListener("change", (e) => {
-  const selectedCategorie = document.querySelector(".navCategoriesActive");
+  const selectedCategory = document.querySelector(".navCategoriesActive");
   sort(products, "price", e.target.value);
-  if (selectedCategorie !== null) {
-    const selectedCategorieId = Number(selectedCategorie.id.slice(10));
-    createListProducts(products, selectedCategorieId);
+  if (selectedCategory !== null) {
+    const selectedCategoryId = Number(selectedCategory.id.slice(9));
+    createListProducts(products, selectedCategoryId);
   } else {
     createListProducts(products);
   }

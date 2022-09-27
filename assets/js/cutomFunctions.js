@@ -17,7 +17,7 @@ export const createListProducts = (products, selectedCategory = false) => {
   let listProducts = document.querySelector("#listProducts");
   listProducts.innerHTML = "";
   for (let product of products) {
-    if (product.categorie === selectedCategory || selectedCategory === false) {
+    if (product.category === selectedCategory || selectedCategory === false) {
       let div = document.createElement("div");
       div.className = "col-12 col-md-6 col-lg-3 mb-3";
       div.innerHTML = `
@@ -75,29 +75,29 @@ export const createListProducts = (products, selectedCategory = false) => {
 
 export const creatListCategories = (categories, products) => {
   let listCategories = document.querySelector("#listCategories");
-  for (let categorie of categories) {
+  for (let category of categories) {
     let li = document.createElement("li");
     li.className = "nav-item";
-    li.innerHTML = `<a class="nav-link navCategories p-2 mb-2" href="#" id="categorie-${categorie.id}">${categorie.description}</a>`;
+    li.innerHTML = `<a class="nav-link navCategories p-2 mb-2" href="#" id="category-${category.id}">${category.description}</a>`;
     listCategories.append(li);
 
-    let categorieHandler = document.querySelector(`#categorie-${categorie.id}`);
-    categorieHandler.addEventListener("click", () => {
+    let categoryHandler = document.querySelector(`#category-${category.id}`);
+    categoryHandler.addEventListener("click", () => {
       const orderBy = document.querySelector("#orderProductsByPrice").value;
       sort(products, "price", orderBy);
-      selectedCategorie(categorie.id);
-      createListProducts(products, categorie.id);
+      selectedCategory(category.id);
+      createListProducts(products, category.id);
     });
   }
 };
 
-const selectedCategorie = (categorieId) => {
-  const selected = document.querySelector(`#categorie-${categorieId}`);
+const selectedCategory = (categoryId) => {
+  const selected = document.querySelector(`#category-${categoryId}`);
   selected.classList.add("navCategoriesActive");
 
   const navCategories = document.querySelectorAll(".navCategories");
   for (const nav of navCategories) {
-    if (nav.id !== `categorie-${categorieId}`) {
+    if (nav.id !== `category-${categoryId}`) {
       nav.classList.remove("navCategoriesActive");
     }
   }
