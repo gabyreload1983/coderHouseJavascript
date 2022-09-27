@@ -7,11 +7,12 @@ import {
 const cartLink = document.querySelector("#cartLink");
 const cartCount = document.querySelector("#cartCount");
 const cartModalBody = document.querySelector("#cartTbody");
+const cartTotal = document.querySelector("#cartTotal");
 const listProducts = document.querySelector("#listProducts");
 const listCategories = document.querySelector("#listCategories");
-const orderProductsByPrice = document.querySelector("#orderProductsByPrice");
+const filterByPrice = document.querySelector("#filterByPrice");
 
-const cart = [];
+let cart = [];
 const products = [];
 
 const sort = (array, key = "price", direction = "ASC") => {
@@ -75,7 +76,7 @@ const createListProducts = (products, selectedCategory = false) => {
 
       let addProduct = document.querySelector(`#add-${product.id}`);
       addProduct.addEventListener("click", () => {
-        addCart(product.id);
+        addCart(product);
       });
 
       let image = document.querySelector(`#image-${product.id}`);
@@ -95,9 +96,8 @@ const creatListCategories = (categories) => {
 
     let categoryHandler = document.querySelector(`#category-${category.id}`);
     categoryHandler.addEventListener("click", () => {
-      const orderBy = document.querySelector("#orderProductsByPrice").value;
-      sort(products, "price", orderBy);
       selectedCategory(category.id);
+      sort(products, "price", filterByPrice.value);
       createListProducts(products, category.id);
     });
   }
@@ -115,13 +115,11 @@ const selectedCategory = (categoryId) => {
   }
 };
 
-const addCart = (productId) => {
-  const exists = cart.find((product) => product.id === productId);
+const addCart = (product) => {
+  const exists = cart.find((item) => item.id === product.id);
   if (exists) {
-    const index = cart.indexOf(exists);
-    cart[index].quantity++;
+    exists.quantity++;
   } else {
-    const product = products.find((product) => product.id === productId);
     product.quantity = 1;
     cart.push(product);
   }
@@ -130,9 +128,7 @@ const addCart = (productId) => {
 };
 
 const removeCart = (productId) => {
-  const item = cart.find((product) => product.id === productId);
-  const index = cart.indexOf(item);
-  cart.splice(index, 1);
+  cart = cart.filter((item) => item.id !== productId);
   showCart(cart);
 
   cartCount.innerHTML = cart.length;
@@ -154,15 +150,25 @@ const showCart = () => {
     cartModalBody.append(tr);
 
     const removeProduct = document.querySelector(`#removeProduct${product.id}`);
-    removeProduct.addEventListener("click", () => removeCart(product.id, cart));
+    removeProduct.addEventListener("click", () => removeCart(product.id));
   });
 
   const total = cart
     .reduce((acc, prod) => acc + prod.addTax() * prod.quantity, 0)
     .toFixed(2);
 
-  const cartTotal = document.querySelector("#cartTotal");
   cartTotal.innerHTML = `$${total}`;
+};
+
+const orderProductsBy = (orientation) => {
+  const selectedCategory = document.querySelector(".navCategoriesActive");
+  sort(products, "price", orientation);
+  if (selectedCategory !== null) {
+    const selectedCategoryId = Number(selectedCategory.id.slice(9));
+    createListProducts(products, selectedCategoryId);
+  } else {
+    createListProducts(products);
+  }
 };
 
 class Product {
@@ -190,16 +196,9 @@ sort(dataBaseCategories, "description");
 creatListCategories(dataBaseCategories);
 createListProducts(products);
 
-orderProductsByPrice.addEventListener("change", (e) => {
+filterByPrice.addEventListener("change", (e) => {
   const orientation = e.target.value;
-  const selectedCategory = document.querySelector(".navCategoriesActive");
-  sort(products, "price", orientation);
-  if (selectedCategory !== null) {
-    const selectedCategoryId = Number(selectedCategory.id.slice(9));
-    createListProducts(products, selectedCategoryId);
-  } else {
-    createListProducts(products);
-  }
+  orderProductsBy(orientation);
 });
 
 cartLink.addEventListener("click", () => showCart());
