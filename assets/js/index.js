@@ -9,15 +9,13 @@ const searchProducts = document.querySelector("#searchProducts");
 const searchList = document.querySelector("#searchList");
 
 const products = [];
-const cart = [];
+let cart = [];
 
-const addCart = (productId) => {
-  const exists = cart.find((product) => product.id === productId);
+const addCart = (product) => {
+  const exists = cart.find((item) => item.id === product.id);
   if (exists) {
-    const index = cart.indexOf(exists);
-    cart[index].quantity++;
+    exists.quantity++;
   } else {
-    const product = products.find((product) => product.id === productId);
     product.quantity = 1;
     cart.push(product);
   }
@@ -26,9 +24,7 @@ const addCart = (productId) => {
 };
 
 const removeCart = (productId) => {
-  const item = cart.find((product) => product.id === productId);
-  const index = cart.indexOf(item);
-  cart.splice(index, 1);
+  cart = cart.filter((item) => item.id !== productId);
   showCart(cart);
 
   cartCount.innerHTML = cart.length;
@@ -66,31 +62,10 @@ const searchProductsByDescription = (description) => {
   );
 };
 
-class Product {
-  constructor(product, dollar) {
-    this.id = product.id;
-    this.description = product.description;
-    this.brand = product.brand;
-    this.category = product.category;
-    this.price = product.price * dollar;
-    this.stock = product.stock;
-    this.quantity = 0;
-  }
-  addTax() {
-    return (this.price * 1.105).toFixed(2);
-  }
-}
-
-for (const product of dataBaseProducts) {
-  products.push(new Product(product, dataBaseDollar));
-}
-
-searchProducts.addEventListener("input", (e) => {
-  const keyWords = e.target.value.length;
+const renderListProducts = (keyWords) => {
   searchList.innerHTML = "";
-  if (keyWords > 2) {
-    const description = e.target.value.toUpperCase();
-    const productsFilter = searchProductsByDescription(description);
+  if (keyWords.length > 2) {
+    const productsFilter = searchProductsByDescription(keyWords);
 
     for (const product of productsFilter) {
       let li = document.createElement("li");
@@ -164,7 +139,7 @@ searchProducts.addEventListener("input", (e) => {
 
         const addProduct = document.querySelector(`#add-${selectedProduct.id}`);
         addProduct.addEventListener("click", () => {
-          addCart(selectedProduct.id);
+          addCart(selectedProduct);
         });
 
         const close = document.querySelector(`#close-${selectedProduct.id}`);
@@ -181,6 +156,31 @@ searchProducts.addEventListener("input", (e) => {
       });
     }
   }
+};
+
+class Product {
+  constructor(product, dollar) {
+    this.id = product.id;
+    this.description = product.description;
+    this.brand = product.brand;
+    this.category = product.category;
+    this.price = product.price * dollar;
+    this.stock = product.stock;
+    this.quantity = 0;
+  }
+  addTax() {
+    return (this.price * 1.105).toFixed(2);
+  }
+}
+
+for (const product of dataBaseProducts) {
+  products.push(new Product(product, dataBaseDollar));
+}
+
+searchProducts.addEventListener("input", (e) => {
+  const keyWords = e.target.value.toUpperCase();
+
+  renderListProducts(keyWords);
 });
 
 cartLink.addEventListener("click", () => showCart());
