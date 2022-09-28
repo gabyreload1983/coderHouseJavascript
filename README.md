@@ -2,6 +2,6 @@
 
 Proyecto Final
 
-Entrega - Interactuar con HTML
+Desafío: Incorporar eventos
 
 https://gabyreload1983.github.io/coderHouseJavascript/
