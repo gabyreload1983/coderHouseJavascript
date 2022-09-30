@@ -14,7 +14,7 @@ const renderNavLoginHome = (user = false) => {
     const closeSession = document.querySelector("#closeSession");
     closeSession.addEventListener("click", () => {
       sessionStorage.clear();
-      renderNavLogin();
+      renderNavLoginHome();
     });
   } else {
     navLogin.innerHTML = `
