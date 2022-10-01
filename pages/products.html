@@ -131,22 +131,22 @@
     <main>
       <div class="container-fluid bg-secondary py-5">
         <div class="row justify-content-center" id="containerProducts">
-          <div class="col-2 d-none d-md-block">
+          <div class="col-12 col-md-3 col-lg-2">
+            <h3>Ordenar</h3>
+            <select
+              id="filterByPrice"
+              class="form-select-sm m-0 me-auto mb-3 pe-3"
+            >
+              <option selected value="ASC">Precios Asc</option>
+              <option value="DEC">Precios Dec</option>
+            </select>
             <h3>Categorias</h3>
             <ul
               class="navbar-nav me-auto mb-2 mb-lg-0"
               id="listCategories"
             ></ul>
           </div>
-          <div class="col-10">
-            <select
-              id="filterByPrice"
-              class="form-select form-select-sm"
-              aria-label="Default select example"
-            >
-              <option selected value="ASC">Menor a mayor precio</option>
-              <option value="DEC">Mayor a menor precio</option>
-            </select>
+          <div class="col-12 col-md-9 col-lg-10">
             <div class="row" id="listProducts"></div>
           </div>
         </div>
