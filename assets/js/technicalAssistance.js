@@ -1,3 +1,9 @@
+const formTicket = document.querySelector("#formTicket");
+const messegeResponse = document.querySelector("#messegeResponse");
+const spinnerBorderTechnicalAssistance = document.querySelector(
+  "#spinnerBorderTechnicalAssistance"
+);
+
 class Ticket {
   constructor(user) {
     this.firstName = user.firstName;
@@ -10,8 +16,8 @@ class Ticket {
 
 const validateForm = (e) => {
   e.preventDefault();
-  const spinnerBorder = document.querySelector(".spinner-border");
-  spinnerBorder.classList.remove("visually-hidden");
+  spinnerBorderTechnicalAssistance.classList.remove("visually-hidden");
+
   setTimeout(() => {
     const form = e.target.children;
     const ticket = new Ticket({
@@ -21,18 +27,28 @@ const validateForm = (e) => {
       email: form[3].children[1].value,
       message: form[4].children[1].value,
     });
-    e.target.reset();
 
-    const messegeResponse = document.querySelector("#messegeResponse");
+    if (createTicket(ticket)) {
+      messegeResponse.innerHTML = `
+            <strong>${ticket.firstName} ${ticket.lastName}, tu ticket fue creado con exito. </br>
+            Nos comunicaremos con usted a la brevedad.
+            </strong>
+            `;
+    } else {
+      messegeResponse.innerHTML = `
+            <strong>${ticket.firstName} ${ticket.lastName}, no se pudo crear tu ticket. </br>
+            Intenta mas tarde.
+            </strong>
+            `;
+    }
+    e.target.reset();
     messegeResponse.classList.remove("d-none");
-    messegeResponse.innerHTML = `
-      <strong>${ticket.firstName} ${ticket.lastName}, tu ticket fue creado con exito. </br>
-      Nos comunicaremos con usted a la brevedad.
-      </strong>
-      `;
-    spinnerBorder.classList.add("visually-hidden");
+    spinnerBorderTechnicalAssistance.classList.add("visually-hidden");
   }, 1000);
 };
 
-const formTicket = document.querySelector("#formTicket");
+const createTicket = (ticket) => {
+  return true;
+};
+
 formTicket.addEventListener("submit", validateForm);
