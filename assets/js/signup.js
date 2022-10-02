@@ -1,7 +1,7 @@
 import { dataBaseUsers } from "./dataBase.js";
 
 const formSignup = document.querySelector("#formSignup");
-const spinnerBorder = document.querySelector(".spinner-border");
+const spinnerBorderSignup = document.querySelector("#spinnerBorderSignup");
 const messegeResponse = document.querySelector("#messegeResponse");
 
 class User {
@@ -33,10 +33,10 @@ formSignup.addEventListener("submit", (e) => {
   const email = e.target[3].value;
 
   messegeResponse.classList.add("d-none");
-  spinnerBorder.classList.remove("visually-hidden");
+  spinnerBorderSignup.classList.remove("visually-hidden");
 
   setTimeout(() => {
-    spinnerBorder.classList.add("visually-hidden");
+    spinnerBorderSignup.classList.add("visually-hidden");
 
     if (password !== confirmPassword) {
       messegeResponse.classList.remove("d-none");
