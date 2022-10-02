@@ -2,12 +2,21 @@ const cartLink = document.querySelector("#cartLink");
 const cartCount = document.querySelector("#cartCount");
 const cartTotal = document.querySelector("#cartTotal");
 const cartModalBody = document.querySelector("#cartTbody");
+const confirmCart = document.querySelector("#confirmCart");
+const confirmPayment = document.querySelector("#confirmPayment");
+const modalBodyPayment = document.querySelector("#modalBodyPayment");
+const spinnerBorder = document.querySelector(".spinner-border");
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 cartCount.innerHTML = cart.length;
 
 const showCart = () => {
   cartModalBody.innerHTML = "";
   cart = JSON.parse(localStorage.getItem("cart")) || [];
+  if (cart.length) {
+    confirmCart.removeAttribute("disabled");
+  } else {
+    confirmCart.setAttribute("disabled", true);
+  }
   cart.forEach((product) => {
     const tr = document.createElement("tr");
 
@@ -38,6 +47,7 @@ const removeCart = (productId) => {
   showCart(cart);
 
   cartCount.innerHTML = cart.length;
+  if (!cart.length) confirmCart.setAttribute("disabled", true);
 };
 
 const addCart = (product) => {
@@ -53,4 +63,18 @@ const addCart = (product) => {
   cartCount.innerHTML = cart.length;
 };
 
+const processPayment = () => {
+  spinnerBorder.classList.remove("visually-hidden");
+  console.log("Process payment");
+
+  setTimeout(() => {
+    localStorage.removeItem("cart");
+    cart = [];
+    cartCount.innerHTML = cart.length;
+    spinnerBorder.classList.add("visually-hidden");
+    modalBodyPayment.innerHTML = "<h5>Pago con exito!!!</h5>";
+  }, 1500);
+};
+
 cartLink.addEventListener("click", () => showCart());
+confirmPayment.addEventListener("click", () => processPayment());
