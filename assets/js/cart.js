@@ -67,7 +67,6 @@ const addCart = (product) => {
 
 const processPayment = () => {
   spinnerBorderConfirmPayment.classList.remove("visually-hidden");
-  console.log("Process payment");
 
   setTimeout(() => {
     localStorage.removeItem("cart");
