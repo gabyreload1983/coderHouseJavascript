@@ -34,6 +34,7 @@ formLogin.addEventListener("submit", (e) => {
       renderNavLogin(user);
       e.target.reset();
       spinnerBorderLogin.classList.add("visually-hidden");
+      window.location.href = "../index.html";
     } else {
       spinnerBorderLogin.classList.add("visually-hidden");
       messegeResponse.classList.remove("d-none");
