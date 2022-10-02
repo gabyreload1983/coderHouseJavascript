@@ -1,60 +1,27 @@
 import { dataBaseDollar, dataBaseProducts } from "./dataBase.js";
 
-const cartLink = document.querySelector("#cartLink");
-const cartCount = document.querySelector("#cartCount");
-const cartTotal = document.querySelector("#cartTotal");
-const cartModalBody = document.querySelector("#cartTbody");
 const productCard = document.querySelector("#productCard");
 const searchProducts = document.querySelector("#searchProducts");
 const searchList = document.querySelector("#searchList");
 
-const products = [];
-let cart = [];
-
-const addCart = (product) => {
-  const exists = cart.find((item) => item.id === product.id);
-  if (exists) {
-    exists.quantity++;
-  } else {
-    product.quantity = 1;
-    cart.push(product);
+class Product {
+  constructor(product, dollar) {
+    this.id = product.id;
+    this.description = product.description;
+    this.brand = product.brand;
+    this.category = product.category;
+    this.price = product.price * dollar;
+    this.tax = product.tax;
+    this.priceWithTax = product.price * dollar * product.tax;
+    this.stock = product.stock;
+    this.quantity = 0;
   }
+}
 
-  cartCount.innerHTML = cart.length;
-};
-
-const removeCart = (productId) => {
-  cart = cart.filter((item) => item.id !== productId);
-  showCart(cart);
-
-  cartCount.innerHTML = cart.length;
-};
-
-const showCart = () => {
-  cartModalBody.innerHTML = "";
-  cart.forEach((product) => {
-    const tr = document.createElement("tr");
-
-    tr.innerHTML = `
-        <th>${product.quantity}</th>
-        <td>${product.description}</td>
-        <td>$${product.addTax()}</td>
-        <td> <button type="button" class="btn btn-outline-danger" id="removeProduct${
-          product.id
-        }">X</button></td>
-      `;
-    cartModalBody.append(tr);
-
-    const removeProduct = document.querySelector(`#removeProduct${product.id}`);
-    removeProduct.addEventListener("click", () => removeCart(product.id));
-  });
-
-  const total = cart
-    .reduce((acc, prod) => acc + prod.addTax() * prod.quantity, 0)
-    .toFixed(2);
-
-  cartTotal.innerHTML = `$${total}`;
-};
+const products = [];
+for (const product of dataBaseProducts) {
+  products.push(new Product(product, dataBaseDollar));
+}
 
 const searchProductsByDescription = (description) => {
   return products.filter((product) =>
@@ -104,7 +71,9 @@ const renderListProducts = (keyWords) => {
             >
               <div class="card-body">
                 <h5 class="card-title">${selectedProduct.description}</h5>
-                <p class="card-text">$${selectedProduct.addTax()}</p>
+                <p class="card-text">$${selectedProduct.priceWithTax.toFixed(
+                  2
+                )}</p>
                 <p class="card-text">
                   <small class="text-muted"
                     >stock: ${selectedProduct.stock}</small
@@ -158,29 +127,8 @@ const renderListProducts = (keyWords) => {
   }
 };
 
-class Product {
-  constructor(product, dollar) {
-    this.id = product.id;
-    this.description = product.description;
-    this.brand = product.brand;
-    this.category = product.category;
-    this.price = product.price * dollar;
-    this.stock = product.stock;
-    this.quantity = 0;
-  }
-  addTax() {
-    return (this.price * 1.105).toFixed(2);
-  }
-}
-
-for (const product of dataBaseProducts) {
-  products.push(new Product(product, dataBaseDollar));
-}
-
 searchProducts.addEventListener("input", (e) => {
   const keyWords = e.target.value.toUpperCase();
 
   renderListProducts(keyWords);
 });
-
-cartLink.addEventListener("click", () => showCart());

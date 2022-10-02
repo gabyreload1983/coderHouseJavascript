@@ -4,16 +4,9 @@ import {
   dataBaseProducts,
 } from "./dataBase.js";
 
-const cartLink = document.querySelector("#cartLink");
-const cartCount = document.querySelector("#cartCount");
-const cartModalBody = document.querySelector("#cartTbody");
-const cartTotal = document.querySelector("#cartTotal");
 const listProducts = document.querySelector("#listProducts");
 const listCategories = document.querySelector("#listCategories");
 const filterByPrice = document.querySelector("#filterByPrice");
-
-let cart = [];
-const products = [];
 
 const sort = (array, key = "price", direction = "ASC") => {
   array.sort((a, b) => {
@@ -47,7 +40,7 @@ const createListProducts = (products, selectedCategory = false) => {
         <h5 class="card-title">
           ${product.description}
         </h5>
-        <p class="card-text">$${product.addTax()}</p>
+        <p class="card-text">$${product.priceWithTax.toFixed(2)}</p>
         <button
           class="btn btn-primary d-flex justify-content-center align-items-center"
           id="add-${product.id}"
@@ -115,59 +108,12 @@ const selectedCategory = (categoryId) => {
   }
 };
 
-const addCart = (product) => {
-  const exists = cart.find((item) => item.id === product.id);
-  if (exists) {
-    exists.quantity++;
-  } else {
-    product.quantity = 1;
-    cart.push(product);
-  }
-
-  cartCount.innerHTML = cart.length;
-};
-
-const removeCart = (productId) => {
-  cart = cart.filter((item) => item.id !== productId);
-  showCart(cart);
-
-  cartCount.innerHTML = cart.length;
-};
-
-const showCart = () => {
-  cartModalBody.innerHTML = "";
-  cart.forEach((product) => {
-    const tr = document.createElement("tr");
-
-    tr.innerHTML = `
-        <th>${product.quantity}</th>
-        <td>${product.description}</td>
-        <td>$${product.addTax()}</td>
-        <td> <button type="button" class="btn btn-outline-danger" id="removeProduct${
-          product.id
-        }">X</button></td>
-      `;
-    cartModalBody.append(tr);
-
-    const removeProduct = document.querySelector(`#removeProduct${product.id}`);
-    removeProduct.addEventListener("click", () => removeCart(product.id));
-  });
-
-  const total = cart
-    .reduce((acc, prod) => acc + prod.addTax() * prod.quantity, 0)
-    .toFixed(2);
-
-  cartTotal.innerHTML = `$${total}`;
-};
-
 const orderProductsBy = (orientation) => {
   const selectedCategory = document.querySelector(".navCategoriesActive");
   sort(products, "price", orientation);
   if (selectedCategory !== null) {
     const selectedCategoryId = Number(selectedCategory.id.slice(9));
     createListProducts(products, selectedCategoryId);
-  } else {
-    createListProducts(products);
   }
 };
 
@@ -178,27 +124,22 @@ class Product {
     this.brand = product.brand;
     this.category = product.category;
     this.price = product.price * dollar;
+    this.tax = product.tax;
+    this.priceWithTax = product.price * dollar * product.tax;
     this.stock = product.stock;
     this.quantity = 0;
   }
-  addTax() {
-    return (this.price * 1.105).toFixed(2);
-  }
 }
 
+const products = [];
 for (const product of dataBaseProducts) {
   products.push(new Product(product, dataBaseDollar));
 }
-
-sort(products);
-sort(dataBaseCategories, "description");
-
-creatListCategories(dataBaseCategories);
-createListProducts(products);
 
 filterByPrice.addEventListener("change", (e) => {
   const orientation = e.target.value;
   orderProductsBy(orientation);
 });
 
-cartLink.addEventListener("click", () => showCart());
+sort(dataBaseCategories, "description");
+creatListCategories(dataBaseCategories);

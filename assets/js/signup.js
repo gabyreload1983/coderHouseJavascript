@@ -1,5 +1,9 @@
 import { dataBaseUsers } from "./dataBase.js";
 
+const formSignup = document.querySelector("#formSignup");
+const spinnerBorderSignup = document.querySelector("#spinnerBorderSignup");
+const messegeResponse = document.querySelector("#messegeResponse");
+
 class User {
   constructor(user) {
     this.firstName = user.firstName;
@@ -14,25 +18,25 @@ const checkUserExists = (email) => {
   return dataBaseUsers.find((user) => user.email === email);
 };
 
-const register = (user) => {
-  return true;
+const registerInDataBase = (user) => {
+  return {
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+  };
 };
 
-const formSignup = document.querySelector("#formSignup");
 formSignup.addEventListener("submit", (e) => {
   e.preventDefault();
+  const password = e.target[4].value;
+  const confirmPassword = e.target[5].value;
+  const email = e.target[3].value;
 
-  const messegeResponse = document.querySelector("#messegeResponse");
   messegeResponse.classList.add("d-none");
-
-  const spinnerBorder = document.querySelector(".spinner-border");
-  spinnerBorder.classList.remove("visually-hidden");
+  spinnerBorderSignup.classList.remove("visually-hidden");
 
   setTimeout(() => {
-    spinnerBorder.classList.add("visually-hidden");
-
-    const password = e.target[4].value;
-    const confirmPassword = e.target[5].value;
+    spinnerBorderSignup.classList.add("visually-hidden");
 
     if (password !== confirmPassword) {
       messegeResponse.classList.remove("d-none");
@@ -41,7 +45,7 @@ formSignup.addEventListener("submit", (e) => {
       `;
       return null;
     }
-    const email = e.target[3].value;
+
     if (checkUserExists(email)) {
       messegeResponse.classList.remove("d-none");
       messegeResponse.innerHTML = `
@@ -56,15 +60,20 @@ formSignup.addEventListener("submit", (e) => {
       email: e.target[3].value,
       password: e.target[4].value,
     });
-    const response = register(user);
+    const response = registerInDataBase(user);
     if (response) {
+      sessionStorage.setItem("user", JSON.stringify(response));
+      renderNavLogin(response);
       messegeResponse.classList.remove("d-none");
       messegeResponse.innerHTML = `
       <p class="text-info text-center m-0 py-2">${user.firstName} ${user.lastName} te registraste con exito!</p>
       `;
-      const userName = document.querySelector("#userName");
-      userName.innerText = user.firstName;
       e.target.reset();
+    } else {
+      messegeResponse.classList.remove("d-none");
+      messegeResponse.innerHTML = `
+      <p class="text-info text-center m-0 py-2">Error inesperado. Intentalo mas tarde.</p>
+      `;
     }
   }, 1000);
 });

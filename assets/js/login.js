@@ -1,34 +1,42 @@
 import { dataBaseUsers } from "./dataBase.js";
 
+const formLogin = document.querySelector("#formLogin");
+const spinnerBorderLogin = document.querySelector("#spinnerBorderLogin");
+const messegeResponse = document.querySelector("#messegeResponse");
+
 const checkUser = (credentials) => {
-  const user = dataBaseUsers.find(
+  let user = dataBaseUsers.find(
     (user) =>
       user.email === credentials.email && user.password === credentials.password
   );
+  if (user) {
+    user = {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+    };
+  }
 
   return user;
 };
 
-const formLogin = document.querySelector("#formLogin");
 formLogin.addEventListener("submit", (e) => {
   e.preventDefault();
   const credentials = { email: e.target[0].value, password: e.target[1].value };
 
-  const spinnerBorder = document.querySelector(".spinner-border");
-  spinnerBorder.classList.remove("visually-hidden");
-
-  const messegeResponse = document.querySelector("#messegeResponse");
+  spinnerBorderLogin.classList.remove("visually-hidden");
   messegeResponse.classList.add("d-none");
 
   setTimeout(() => {
     const user = checkUser(credentials);
     if (user) {
-      const userName = document.querySelector("#userName");
-      userName.innerText = user.firstName;
+      sessionStorage.setItem("user", JSON.stringify(user));
+      renderNavLogin(user);
       e.target.reset();
-      spinnerBorder.classList.add("visually-hidden");
+      spinnerBorderLogin.classList.add("visually-hidden");
+      window.location.href = "../index.html";
     } else {
-      spinnerBorder.classList.add("visually-hidden");
+      spinnerBorderLogin.classList.add("visually-hidden");
       messegeResponse.classList.remove("d-none");
       messegeResponse.innerHTML = `
       <p class="text-danger text-center m-0 py-2">Datos incorrectos</p>
