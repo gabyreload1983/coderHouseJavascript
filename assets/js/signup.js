@@ -18,11 +18,11 @@ const checkUserExists = (email) => {
   return dataBaseUsers.find((user) => user.email === email);
 };
 
-const registerInDataBase = (user) => {
+const registerInDataBase = ({ firstName, lastName, email }) => {
   return {
-    firstName: user.firstName,
-    lastName: user.lastName,
-    email: user.email,
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
   };
 };
 

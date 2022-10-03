@@ -28,19 +28,18 @@ const validateForm = (e) => {
       message: form[4].children[1].value,
     });
 
-    if (createTicket(ticket)) {
-      messegeResponse.innerHTML = `
+    createTicket(ticket)
+      ? (messegeResponse.innerHTML = `
             <strong>${ticket.firstName} ${ticket.lastName}, tu ticket fue creado con exito. </br>
             Nos comunicaremos con usted a la brevedad.
             </strong>
-            `;
-    } else {
-      messegeResponse.innerHTML = `
+            `)
+      : (messegeResponse.innerHTML = `
             <strong>${ticket.firstName} ${ticket.lastName}, no se pudo crear tu ticket. </br>
             Intenta mas tarde.
             </strong>
-            `;
-    }
+            `);
+
     e.target.reset();
     messegeResponse.classList.remove("d-none");
     spinnerBorderTechnicalAssistance.classList.add("visually-hidden");

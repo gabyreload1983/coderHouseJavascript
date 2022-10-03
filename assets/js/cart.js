@@ -14,11 +14,9 @@ cartCount.innerHTML = cart.length;
 const showCart = () => {
   cartModalBody.innerHTML = "";
   cart = JSON.parse(localStorage.getItem("cart")) || [];
-  if (cart.length) {
-    confirmCart.removeAttribute("disabled");
-  } else {
-    confirmCart.setAttribute("disabled", true);
-  }
+  cart.length
+    ? confirmCart.removeAttribute("disabled")
+    : confirmCart.setAttribute("disabled", true);
   cart.forEach((product) => {
     const tr = document.createElement("tr");
 
@@ -49,7 +47,7 @@ const removeCart = (productId) => {
   showCart(cart);
 
   cartCount.innerHTML = cart.length;
-  if (!cart.length) confirmCart.setAttribute("disabled", true);
+  !cart.length && confirmCart.setAttribute("disabled", true);
 };
 
 const addCart = (product) => {
