@@ -78,7 +78,12 @@ const processPayment = () => {
     cart = [];
     cartCount.innerHTML = cart.length;
     spinnerBorderConfirmPayment.classList.add("visually-hidden");
-    modalBodyPayment.innerHTML = "<h5>Pago con exito!!!</h5>";
+    swal({
+      title: "Pago exitoso",
+      text: `Tu pago se realizo con exito.
+      Gracias por tu compra!`,
+      icon: "success",
+    }).then((result) => (window.location.href = "../index.html"));
   }, 1500);
 };
 
