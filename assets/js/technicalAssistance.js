@@ -1,5 +1,4 @@
 const formTicket = document.querySelector("#formTicket");
-const messegeResponse = document.querySelector("#messegeResponse");
 const spinnerBorderTechnicalAssistance = document.querySelector(
   "#spinnerBorderTechnicalAssistance"
 );
@@ -29,19 +28,22 @@ const validateForm = (e) => {
     });
 
     createTicket(ticket)
-      ? (messegeResponse.innerHTML = `
-            <strong>${ticket.firstName} ${ticket.lastName}, tu ticket fue creado con exito. </br>
-            Nos comunicaremos con usted a la brevedad.
-            </strong>
-            `)
-      : (messegeResponse.innerHTML = `
-            <strong>${ticket.firstName} ${ticket.lastName}, no se pudo crear tu ticket. </br>
-            Intenta mas tarde.
-            </strong>
-            `);
+      ? swal({
+          title: "Ticket creado",
+          text: `${ticket.firstName} ${ticket.lastName}, tu ticket fue creado con exito.
+        Nos comunicaremos con usted a la brevedad.
+        `,
+          icon: "success",
+        })
+      : swal({
+          title: "Error",
+          text: `${ticket.firstName} ${ticket.lastName}, no se pudo crear tu ticket.
+        Intenta mas tarde.
+      `,
+          icon: "error",
+        });
 
     e.target.reset();
-    messegeResponse.classList.remove("d-none");
     spinnerBorderTechnicalAssistance.classList.add("visually-hidden");
   }, 1000);
 };
