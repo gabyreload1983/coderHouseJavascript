@@ -9,13 +9,7 @@ const checkUser = ({ email, password }) => {
     (user) => user.email === email && user.password === password
   );
 
-  return user
-    ? {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-      }
-    : false;
+  return user ? { ...user, password: "" } : false;
 };
 
 formLogin.addEventListener("submit", (e) => {

@@ -61,8 +61,7 @@ const addCart = (product) => {
   if (exists) {
     exists.quantity++;
   } else {
-    product.quantity = 1;
-    cart.push(product);
+    cart.push({ ...product, quantity: 1 });
   }
 
   localStorage.setItem("cart", JSON.stringify(cart));
