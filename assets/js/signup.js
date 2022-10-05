@@ -2,7 +2,6 @@ import { dataBaseUsers } from "./dataBase.js";
 
 const formSignup = document.querySelector("#formSignup");
 const spinnerBorderSignup = document.querySelector("#spinnerBorderSignup");
-const messegeResponse = document.querySelector("#messegeResponse");
 
 class User {
   constructor(user) {
@@ -18,7 +17,13 @@ const checkUserExists = (email) => {
   return dataBaseUsers.find((user) => user.email === email);
 };
 
-const registerInDataBase = ({ firstName, lastName, email }) => {
+const registerInDataBase = ({
+  firstName,
+  lastName,
+  email,
+  celphone,
+  password,
+}) => {
   return {
     firstName: firstName,
     lastName: lastName,
@@ -32,25 +37,26 @@ formSignup.addEventListener("submit", (e) => {
   const confirmPassword = e.target[5].value;
   const email = e.target[3].value;
 
-  messegeResponse.classList.add("d-none");
   spinnerBorderSignup.classList.remove("visually-hidden");
 
   setTimeout(() => {
     spinnerBorderSignup.classList.add("visually-hidden");
 
     if (password !== confirmPassword) {
-      messegeResponse.classList.remove("d-none");
-      messegeResponse.innerHTML = `
-      <p class="text-danger text-center m-0 py-2">Contraseñas no coinciden</p>
-      `;
+      swal({
+        title: "Error",
+        text: "Contraseñas no coinciden",
+        icon: "warning",
+      });
       return null;
     }
 
     if (checkUserExists(email)) {
-      messegeResponse.classList.remove("d-none");
-      messegeResponse.innerHTML = `
-      <p class="text-danger text-center m-0 py-2">El email ya se encuentra registrado</p>
-      `;
+      swal({
+        title: "Error",
+        text: "El email ya se encuentra registrado",
+        icon: "warning",
+      });
       return null;
     }
     const user = new User({
@@ -64,16 +70,20 @@ formSignup.addEventListener("submit", (e) => {
     if (response) {
       sessionStorage.setItem("user", JSON.stringify(response));
       renderNavLogin(response);
-      messegeResponse.classList.remove("d-none");
-      messegeResponse.innerHTML = `
-      <p class="text-info text-center m-0 py-2">${user.firstName} ${user.lastName} te registraste con exito!</p>
-      `;
       e.target.reset();
+      swal({
+        title: "Registro con exito!",
+        text: `${user.firstName} ${user.lastName} gracias por registrarte `,
+        icon: "success",
+      }).then((result) => {
+        window.location.href = "../index.html";
+      });
     } else {
-      messegeResponse.classList.remove("d-none");
-      messegeResponse.innerHTML = `
-      <p class="text-info text-center m-0 py-2">Error inesperado. Intentalo mas tarde.</p>
-      `;
+      swal({
+        title: "Error",
+        text: "Error inesperado. Intentalo mas tarde.",
+        icon: "error",
+      });
     }
   }, 1000);
 });
