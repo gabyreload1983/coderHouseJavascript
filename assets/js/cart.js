@@ -21,8 +21,14 @@ const showCart = () => {
     const tr = document.createElement("tr");
 
     tr.innerHTML = `
-        <th>${product.quantity}</th>
-        <td>${product.description}</td>
+        <td>  <img
+        src="../assets/images/products/${product.id}-1.jpg"
+        class="imgCart"
+        alt="..."
+        id="imageCart-${product.id}"
+      /></td>
+        <td>${product.quantity}</td>
+        <td class="d-none d-lg-table-cell">${product.description}</td>
         <td>$${product.priceWithTax.toFixed(2)}</td>
         <td> <button type="button" class="btn btn-outline-danger" id="removeProduct${
           product.id
