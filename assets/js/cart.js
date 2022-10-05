@@ -1,3 +1,4 @@
+const { pathname } = window.location;
 const cartLink = document.querySelector("#cartLink");
 const cartCount = document.querySelector("#cartCount");
 const cartTotal = document.querySelector("#cartTotal");
@@ -10,7 +11,6 @@ const spinnerBorderConfirmPayment = document.querySelector(
 );
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 cartCount.innerHTML = cart.length;
-
 const showCart = () => {
   cartModalBody.innerHTML = "";
   cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -22,7 +22,9 @@ const showCart = () => {
 
     tr.innerHTML = `
         <td>  <img
-        src="../assets/images/products/${product.id}-1.jpg"
+        src="${
+          pathname === "/index.html" ? "." : ".."
+        }/assets/images/products/${product.id}-1.jpg"
         class="imgCart"
         alt="..."
         id="imageCart-${product.id}"
