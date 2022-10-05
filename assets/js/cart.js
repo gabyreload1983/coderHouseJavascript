@@ -2,6 +2,7 @@ const { pathname } = window.location;
 const cartLink = document.querySelector("#cartLink");
 const cartCount = document.querySelector("#cartCount");
 const cartTotal = document.querySelector("#cartTotal");
+const modalDate = document.querySelector("#modalDate");
 const cartModalBody = document.querySelector("#cartTbody");
 const confirmCart = document.querySelector("#confirmCart");
 const confirmPayment = document.querySelector("#confirmPayment");
@@ -11,7 +12,14 @@ const spinnerBorderConfirmPayment = document.querySelector(
 );
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 cartCount.innerHTML = cart.length;
+const DateTime = luxon.DateTime;
+
 const showCart = () => {
+  const now = DateTime.now();
+  modalDate.innerHTML = `
+  <h6 class="pt-2">Fecha: ${now.day}-${now.month}-${now.year}</h6>
+  `;
+
   cartModalBody.innerHTML = "";
   cart = JSON.parse(localStorage.getItem("cart")) || [];
   cart.length
