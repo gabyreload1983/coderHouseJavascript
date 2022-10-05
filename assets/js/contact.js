@@ -24,19 +24,14 @@ const validateForm = (e) => {
       message: form[3].children[1].value,
     });
 
-    if (sendEmail(contact)) {
-      messegeResponse.innerHTML = `
-      <strong>${contact.firstName} ${contact.lastName}, recibimos tu mensaje con exito. </br>
-      Nos comunicaremos con usted a la brevedad.
-      </strong>
-      `;
-    } else {
-      messegeResponse.innerHTML = `
-        <strong>${contact.firstName} ${contact.lastName}, no pudimos enviar tu mensaje. </br>
-        Intenta mas tarde.
-        </strong>
-        `;
-    }
+    messegeResponse.innerHTML = sendEmail(contact)
+      ? `<strong>${contact.firstName} ${contact.lastName}, recibimos tu mensaje con exito. </br>
+    Nos comunicaremos con usted a la brevedad.
+    </strong>`
+      : `<strong>${contact.firstName} ${contact.lastName}, no pudimos enviar tu mensaje. </br>
+    Intenta mas tarde.
+    </strong>
+    `;
 
     e.target.reset();
     messegeResponse.classList.remove("d-none");

@@ -14,17 +14,21 @@ cartCount.innerHTML = cart.length;
 const showCart = () => {
   cartModalBody.innerHTML = "";
   cart = JSON.parse(localStorage.getItem("cart")) || [];
-  if (cart.length) {
-    confirmCart.removeAttribute("disabled");
-  } else {
-    confirmCart.setAttribute("disabled", true);
-  }
+  cart.length
+    ? confirmCart.removeAttribute("disabled")
+    : confirmCart.setAttribute("disabled", true);
   cart.forEach((product) => {
     const tr = document.createElement("tr");
 
     tr.innerHTML = `
-        <th>${product.quantity}</th>
-        <td>${product.description}</td>
+        <td>  <img
+        src="../assets/images/products/${product.id}-1.jpg"
+        class="imgCart"
+        alt="..."
+        id="imageCart-${product.id}"
+      /></td>
+        <td>${product.quantity}</td>
+        <td class="d-none d-lg-table-cell">${product.description}</td>
         <td>$${product.priceWithTax.toFixed(2)}</td>
         <td> <button type="button" class="btn btn-outline-danger" id="removeProduct${
           product.id
@@ -49,7 +53,7 @@ const removeCart = (productId) => {
   showCart(cart);
 
   cartCount.innerHTML = cart.length;
-  if (!cart.length) confirmCart.setAttribute("disabled", true);
+  !cart.length && confirmCart.setAttribute("disabled", true);
 };
 
 const addCart = (product) => {
@@ -57,8 +61,7 @@ const addCart = (product) => {
   if (exists) {
     exists.quantity++;
   } else {
-    product.quantity = 1;
-    cart.push(product);
+    cart.push({ ...product, quantity: 1 });
   }
 
   localStorage.setItem("cart", JSON.stringify(cart));

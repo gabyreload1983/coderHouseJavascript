@@ -8389,6 +8389,9 @@ footer .bi:hover {
 footer .nav-link:hover {
   color: #ec811c; }
 
+.imgCart {
+  width: 40px; }
+
 #main #searchList {
   top: 70px;
   width: 60vw;

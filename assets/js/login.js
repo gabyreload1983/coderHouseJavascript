@@ -4,20 +4,12 @@ const formLogin = document.querySelector("#formLogin");
 const spinnerBorderLogin = document.querySelector("#spinnerBorderLogin");
 const messegeResponse = document.querySelector("#messegeResponse");
 
-const checkUser = (credentials) => {
+const checkUser = ({ email, password }) => {
   let user = dataBaseUsers.find(
-    (user) =>
-      user.email === credentials.email && user.password === credentials.password
+    (user) => user.email === email && user.password === password
   );
-  if (user) {
-    user = {
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-    };
-  }
 
-  return user;
+  return user ? { ...user, password: "" } : false;
 };
 
 formLogin.addEventListener("submit", (e) => {
