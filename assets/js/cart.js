@@ -23,7 +23,9 @@ const showCart = () => {
     tr.innerHTML = `
         <td>  <img
         src="${
-          pathname === "/index.html" ? "." : ".."
+          pathname === "/index.html" || "/coderHouseJavascript/index.html"
+            ? "."
+            : ".."
         }/assets/images/products/${product.id}-1.jpg"
         class="imgCart"
         alt="..."
