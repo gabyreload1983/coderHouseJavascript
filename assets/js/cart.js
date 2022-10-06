@@ -86,7 +86,7 @@ const processPayment = () => {
     cart = [];
     cartCount.innerHTML = cart.length;
     spinnerBorderConfirmPayment.classList.add("visually-hidden");
-    swal({
+    Swal.fire({
       title: "Pago exitoso",
       text: `Tu pago se realizo con exito.
       Gracias por tu compra!`,

@@ -24,14 +24,14 @@ const validateForm = (e) => {
     });
 
     sendEmail(contact)
-      ? swal({
+      ? Swal.fire({
           title: "Mensaje enviado!",
           text: `${contact.firstName} ${contact.lastName},recibimos tu mensaje con exito.
       Nos comunicaremos con usted a la brevedad.
       `,
           icon: "success",
         })
-      : swal({
+      : Swal.fire({
           title: "Error",
           text: `${contact.firstName} ${contact.lastName},no pudimos enviar tu mensaje.
       Intenta mas tarde.

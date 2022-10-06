@@ -28,14 +28,14 @@ const validateForm = (e) => {
     });
 
     createTicket(ticket)
-      ? swal({
+      ? Swal.fire({
           title: "Ticket creado",
           text: `${ticket.firstName} ${ticket.lastName}, tu ticket fue creado con exito.
         Nos comunicaremos con usted a la brevedad.
         `,
           icon: "success",
         })
-      : swal({
+      : Swal.fire({
           title: "Error",
           text: `${ticket.firstName} ${ticket.lastName}, no se pudo crear tu ticket.
         Intenta mas tarde.

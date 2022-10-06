@@ -24,7 +24,7 @@ formLogin.addEventListener("submit", (e) => {
       renderNavLogin(user);
       e.target.reset();
       spinnerBorderLogin.classList.add("visually-hidden");
-      swal({
+      Swal.fire({
         title: `Bienvenido/a ${user.firstName} ${user.lastName}`,
         icon: "success",
       }).then((result) => {
@@ -32,7 +32,7 @@ formLogin.addEventListener("submit", (e) => {
       });
     } else {
       spinnerBorderLogin.classList.add("visually-hidden");
-      swal({
+      Swal.fire({
         title: "Error",
         text: "Datos incorrectos",
         icon: "error",

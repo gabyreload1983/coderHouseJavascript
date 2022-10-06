@@ -43,7 +43,7 @@ formSignup.addEventListener("submit", (e) => {
     spinnerBorderSignup.classList.add("visually-hidden");
 
     if (password !== confirmPassword) {
-      swal({
+      Swal.fire({
         title: "Error",
         text: "Contraseñas no coinciden",
         icon: "warning",
@@ -52,7 +52,7 @@ formSignup.addEventListener("submit", (e) => {
     }
 
     if (checkUserExists(email)) {
-      swal({
+      Swal.fire({
         title: "Error",
         text: "El email ya se encuentra registrado",
         icon: "warning",
@@ -71,7 +71,7 @@ formSignup.addEventListener("submit", (e) => {
       sessionStorage.setItem("user", JSON.stringify(response));
       renderNavLogin(response);
       e.target.reset();
-      swal({
+      Swal.fire({
         title: "Registro con exito!",
         text: `${user.firstName} ${user.lastName} gracias por registrarte `,
         icon: "success",
@@ -79,7 +79,7 @@ formSignup.addEventListener("submit", (e) => {
         window.location.href = "../index.html";
       });
     } else {
-      swal({
+      Swal.fire({
         title: "Error",
         text: "Error inesperado. Intentalo mas tarde.",
         icon: "error",
