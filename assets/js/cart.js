@@ -4,6 +4,7 @@ const cartTotal = document.querySelector("#cartTotal");
 const modalDate = document.querySelector("#modalDate");
 const cartModalBody = document.querySelector("#cartTbody");
 const confirmCart = document.querySelector("#confirmCart");
+const emptyCart = document.querySelector("#emptyCart");
 const confirmPayment = document.querySelector("#confirmPayment");
 const modalBodyPayment = document.querySelector("#modalBodyPayment");
 const spinnerBorderConfirmPayment = document.querySelector(
@@ -21,9 +22,14 @@ const showCart = () => {
 
   cartModalBody.innerHTML = "";
   cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart.length
-    ? confirmCart.removeAttribute("disabled")
-    : confirmCart.setAttribute("disabled", true);
+  if (cart.length) {
+    confirmCart.removeAttribute("disabled");
+    emptyCart.removeAttribute("disabled");
+  } else {
+    confirmCart.setAttribute("disabled", true);
+    emptyCart.setAttribute("disabled", true);
+  }
+
   cart.forEach((product) => {
     const tr = document.createElement("tr");
 
@@ -75,6 +81,26 @@ const addCart = (product) => {
   cartCount.innerHTML = cart.length;
 };
 
+const deleteCart = () => {
+  Swal.fire({
+    title: "Esta seguro",
+    text: "Quiere vaciar el carrito???",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Vaciar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      localStorage.removeItem("cart");
+      cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cartCount.innerHTML = cart.length;
+      showCart();
+      Swal.fire("Carrito vaciado!");
+    }
+  });
+};
+
 const processPayment = () => {
   spinnerBorderConfirmPayment.classList.remove("visually-hidden");
 
@@ -88,9 +114,10 @@ const processPayment = () => {
       text: `Tu pago se realizo con exito.
       Gracias por tu compra!`,
       icon: "success",
-    }).then((result) => (window.location.href = "../index.html"));
+    }).then((result) => (window.location.href = `${url}/index.html`));
   }, 1500);
 };
 
 cartLink.addEventListener("click", () => showCart());
 confirmPayment.addEventListener("click", () => processPayment());
+emptyCart.addEventListener("click", () => deleteCart());

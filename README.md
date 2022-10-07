@@ -2,6 +2,6 @@
 
 Proyecto Final
 
-Optimizando el proyecto final
+Incorporando Librerias
 
 https://gabyreload1983.github.io/coderHouseJavascript/

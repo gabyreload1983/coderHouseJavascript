@@ -1,5 +1,6 @@
 const url =
   window.location.pathname === "/index.html" ||
+  window.location.pathname === "/coderHouseJavascript/" ||
   window.location.pathname === "/coderHouseJavascript/index.html"
     ? "."
     : "..";
