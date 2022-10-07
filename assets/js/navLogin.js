@@ -1,3 +1,8 @@
+const url =
+  window.location.pathname === "/index.html" ||
+  window.location.pathname === "/coderHouseJavascript/index.html"
+    ? "."
+    : "..";
 const renderNavLogin = (user = false) => {
   const navLogin = document.querySelector("#navLogin");
   navLogin.innerHTML = "";
@@ -18,7 +23,7 @@ const renderNavLogin = (user = false) => {
     });
   } else {
     navLogin.innerHTML = `
-          <a class="nav-link" href="../pages/login.html">
+          <a class="nav-link" href="${url}/pages/login.html">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"

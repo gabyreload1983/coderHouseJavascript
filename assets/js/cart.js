@@ -1,4 +1,3 @@
-const { pathname } = window.location;
 const cartLink = document.querySelector("#cartLink");
 const cartCount = document.querySelector("#cartCount");
 const cartTotal = document.querySelector("#cartTotal");
@@ -30,9 +29,7 @@ const showCart = () => {
 
     tr.innerHTML = `
         <td>  <img
-        src="${
-          pathname === "/coderHouseJavascript/index.html" ? "." : ".."
-        }/assets/images/products/${product.id}-1.jpg"
+        src="${url}/assets/images/products/${product.id}-1.jpg"
         class="imgCart"
         alt="..."
         id="imageCart-${product.id}"
