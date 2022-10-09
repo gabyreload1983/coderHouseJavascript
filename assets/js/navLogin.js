@@ -1,3 +1,4 @@
+let userSession = JSON.parse(sessionStorage.getItem("user")) || false;
 const url =
   window.location.pathname === "/index.html" ||
   window.location.pathname === "/coderHouseJavascript/" ||
@@ -45,7 +46,5 @@ const renderNavLogin = (user = false) => {
         `;
   }
 };
-
-let userSession = JSON.parse(sessionStorage.getItem("user")) || false;
 
 renderNavLogin(userSession);
