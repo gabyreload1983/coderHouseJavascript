@@ -20,6 +20,7 @@ const renderNavLogin = (user = false) => {
     const closeSession = document.querySelector("#closeSession");
     closeSession.addEventListener("click", () => {
       sessionStorage.removeItem("user");
+      userSession = false;
       renderNavLogin();
     });
   } else {
@@ -45,6 +46,6 @@ const renderNavLogin = (user = false) => {
   }
 };
 
-const user = JSON.parse(sessionStorage.getItem("user")) || false;
+let userSession = JSON.parse(sessionStorage.getItem("user")) || false;
 
-renderNavLogin(user);
+renderNavLogin(userSession);

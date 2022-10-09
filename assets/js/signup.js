@@ -46,6 +46,7 @@ formSignup.addEventListener("submit", (e) => {
       Swal.fire({
         title: "Error",
         text: "Contraseñas no coinciden",
+        confirmButtonColor: "#ec811c",
         icon: "warning",
       });
       return null;
@@ -55,6 +56,7 @@ formSignup.addEventListener("submit", (e) => {
       Swal.fire({
         title: "Error",
         text: "El email ya se encuentra registrado",
+        confirmButtonColor: "#ec811c",
         icon: "warning",
       });
       return null;
@@ -74,7 +76,9 @@ formSignup.addEventListener("submit", (e) => {
       Swal.fire({
         title: "Registro con exito!",
         text: `${user.firstName} ${user.lastName} gracias por registrarte `,
+        confirmButtonColor: "#ec811c",
         icon: "success",
+        iconColor: "#ec811c",
       }).then((result) => {
         window.location.href = "../index.html";
       });
@@ -82,6 +86,7 @@ formSignup.addEventListener("submit", (e) => {
       Swal.fire({
         title: "Error",
         text: "Error inesperado. Intentalo mas tarde.",
+        confirmButtonColor: "#e33",
         icon: "error",
       });
     }

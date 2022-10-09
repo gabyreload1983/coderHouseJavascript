@@ -34,6 +34,8 @@ const validateForm = (e) => {
         Nos comunicaremos con usted a la brevedad.
         `,
           icon: "success",
+          iconColor: "#ec811c",
+          confirmButtonColor: "#ec811c",
         })
       : Swal.fire({
           title: "Error",
@@ -41,6 +43,7 @@ const validateForm = (e) => {
         Intenta mas tarde.
       `,
           icon: "error",
+          confirmButtonColor: "#e33",
         });
 
     e.target.reset();

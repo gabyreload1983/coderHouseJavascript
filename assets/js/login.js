@@ -27,6 +27,8 @@ formLogin.addEventListener("submit", (e) => {
       Swal.fire({
         title: `Bienvenido/a ${user.firstName} ${user.lastName}`,
         icon: "success",
+        iconColor: "#ec811c",
+        confirmButtonColor: "#ec811c",
       }).then((result) => {
         window.location.href = "../index.html";
       });
@@ -35,6 +37,7 @@ formLogin.addEventListener("submit", (e) => {
       Swal.fire({
         title: "Error",
         text: "Datos incorrectos",
+        confirmButtonColor: "#e33",
         icon: "error",
       });
     }

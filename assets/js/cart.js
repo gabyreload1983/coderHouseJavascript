@@ -5,11 +5,6 @@ const modalDate = document.querySelector("#modalDate");
 const cartModalBody = document.querySelector("#cartTbody");
 const confirmCart = document.querySelector("#confirmCart");
 const emptyCart = document.querySelector("#emptyCart");
-const confirmPayment = document.querySelector("#confirmPayment");
-const modalBodyPayment = document.querySelector("#modalBodyPayment");
-const spinnerBorderConfirmPayment = document.querySelector(
-  "#spinnerBorderConfirmPayment"
-);
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 cartCount.innerHTML = cart.length;
 const DateTime = luxon.DateTime;
@@ -83,11 +78,11 @@ const addCart = (product) => {
 
 const deleteCart = () => {
   Swal.fire({
-    title: "Esta seguro",
-    text: "Quiere vaciar el carrito???",
+    title: "Estas seguro",
+    text: "Que quieres vaciar el carrito???",
     icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: "#3085d6",
+    confirmButtonColor: "#ec811c",
     cancelButtonColor: "#d33",
     confirmButtonText: "Vaciar",
   }).then((result) => {
@@ -96,28 +91,66 @@ const deleteCart = () => {
       cart = JSON.parse(localStorage.getItem("cart")) || [];
       cartCount.innerHTML = cart.length;
       showCart();
-      Swal.fire("Carrito vaciado!");
+      Swal.fire({
+        title: "Carrito vacio",
+        confirmButtonColor: "#ec811c",
+        icon: "success",
+        iconColor: "#ec811c",
+      });
     }
   });
 };
 
-const processPayment = () => {
-  spinnerBorderConfirmPayment.classList.remove("visually-hidden");
-
-  setTimeout(() => {
-    localStorage.removeItem("cart");
-    cart = [];
-    cartCount.innerHTML = cart.length;
-    spinnerBorderConfirmPayment.classList.add("visually-hidden");
+const checkLogin = () => {
+  if (!userSession) {
     Swal.fire({
-      title: "Pago exitoso",
-      text: `Tu pago se realizo con exito.
-      Gracias por tu compra!`,
-      icon: "success",
-    }).then((result) => (window.location.href = `${url}/index.html`));
-  }, 1500);
+      title: "Importante!",
+      text: `Tienes que iniciar sesion para realizar la compra`,
+      icon: "info",
+      confirmButtonColor: "#ec811c",
+      iconColor: "#ec811c",
+    }).then((result) => (window.location.href = `${url}/pages/login.html`));
+  } else {
+    Swal.fire({
+      title: "Pagar con Mercadopago",
+      text: "Accediendo a tu cuenta...",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#ec811c",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Pagar!",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let timerInterval;
+        Swal.fire({
+          title: "Mercadopago",
+          html: "Estamos procesando tu pago",
+          timer: 4000,
+          timerProgressBar: true,
+          allowEscapeKey: false,
+          allowOutsideClick: false,
+          showConfirmButton: false,
+          willClose: () => {
+            clearInterval(timerInterval);
+          },
+        }).then((result) => {
+          localStorage.removeItem("cart");
+          cart = [];
+          cartCount.innerHTML = cart.length;
+          Swal.fire({
+            title: "Tu pago se realizo con exito!!!",
+            text: `Gracias por tu compra ${userSession.firstName} ${userSession.lastName}!`,
+            confirmButtonColor: "#ec811c",
+            icon: "success",
+            iconColor: "#ec811c",
+          });
+        });
+      }
+    });
+  }
 };
 
 cartLink.addEventListener("click", () => showCart());
-confirmPayment.addEventListener("click", () => processPayment());
 emptyCart.addEventListener("click", () => deleteCart());
+confirmCart.addEventListener("click", () => checkLogin());
