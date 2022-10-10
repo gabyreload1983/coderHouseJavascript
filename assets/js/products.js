@@ -1,8 +1,35 @@
-import {
-  dataBaseCategories,
-  dataBaseDollar,
-  dataBaseProducts,
-} from "./dataBase.js";
+class Product {
+  constructor(product, dollar) {
+    this.id = product.id;
+    this.description = product.description;
+    this.brand = product.brand;
+    this.category = product.category;
+    this.price = product.price * dollar;
+    this.tax = product.tax;
+    this.priceWithTax = product.price * dollar * product.tax;
+    this.stock = product.stock;
+    this.quantity = 0;
+  }
+}
+
+const dataBaseDollar = 160;
+const products = [];
+fetch("/assets/database/products.json")
+  .then((res) => res.json())
+  .then((dataBaseProducts) => {
+    for (const product of dataBaseProducts) {
+      products.push(new Product(product, dataBaseDollar));
+    }
+  });
+
+let dataBaseCategories = [];
+fetch("/assets/database/categories.json")
+  .then((res) => res.json())
+  .then((data) => {
+    dataBaseCategories = data;
+    sort(dataBaseCategories, "description");
+    creatListCategories(dataBaseCategories);
+  });
 
 const listProducts = document.querySelector("#listProducts");
 const listCategories = document.querySelector("#listCategories");
@@ -132,29 +159,7 @@ const orderProductsBy = (orientation) => {
   }
 };
 
-class Product {
-  constructor(product, dollar) {
-    this.id = product.id;
-    this.description = product.description;
-    this.brand = product.brand;
-    this.category = product.category;
-    this.price = product.price * dollar;
-    this.tax = product.tax;
-    this.priceWithTax = product.price * dollar * product.tax;
-    this.stock = product.stock;
-    this.quantity = 0;
-  }
-}
-
-const products = [];
-for (const product of dataBaseProducts) {
-  products.push(new Product(product, dataBaseDollar));
-}
-
 filterByPrice.addEventListener("change", (e) => {
   const orientation = e.target.value;
   orderProductsBy(orientation);
 });
-
-sort(dataBaseCategories, "description");
-creatListCategories(dataBaseCategories);
