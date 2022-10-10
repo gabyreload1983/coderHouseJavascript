@@ -28,13 +28,33 @@ const createListProducts = (products, selectedCategory = false) => {
       let div = document.createElement("div");
       div.className = "col-12 col-md-6 col-lg-3 mb-3";
       div.innerHTML = `
-    <div class="card border border-primary">
+    <div class="card border-primary">
       <img
-        src="../assets/images/products/${product.id}-1.jpg"
-        class="cardIamge"
-        alt="..."
-        id="image-${product.id}"
+      src="../assets/images/products/${product.id}-1.jpg"
+      class="cardIamge rounded" 
+      data-bs-toggle="modal" data-bs-target="#modalImageZoom-${product.id}"
+      alt="..."
       />
+      <div class="modal fade" id="modalImageZoom-${
+        product.id
+      }" tabindex="-1" aria-labelledby="modalImageZoom-${
+        product.id
+      }Label" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex justify-content-center">
+              <img
+              src="../assets/images/products/${product.id}-1.jpg"
+              class="img-fluid" 
+              alt="..."
+              />
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="card-body d-flex flex-column justify-content-end">
         <strong>CODIGO: ${product.id}</strong>
         <h5 class="card-title">
@@ -70,11 +90,6 @@ const createListProducts = (products, selectedCategory = false) => {
       let addProduct = document.querySelector(`#add-${product.id}`);
       addProduct.addEventListener("click", () => {
         addCart(product);
-      });
-
-      let image = document.querySelector(`#image-${product.id}`);
-      image.addEventListener("click", (e) => {
-        console.log("Falta hacer zomm", product.id);
       });
     }
   }

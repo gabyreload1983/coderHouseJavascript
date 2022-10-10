@@ -2,7 +2,6 @@ import { dataBaseUsers } from "./dataBase.js";
 
 const formLogin = document.querySelector("#formLogin");
 const spinnerBorderLogin = document.querySelector("#spinnerBorderLogin");
-const messegeResponse = document.querySelector("#messegeResponse");
 
 const checkUser = ({ email, password }) => {
   let user = dataBaseUsers.find(
@@ -17,7 +16,6 @@ formLogin.addEventListener("submit", (e) => {
   const credentials = { email: e.target[0].value, password: e.target[1].value };
 
   spinnerBorderLogin.classList.remove("visually-hidden");
-  messegeResponse.classList.add("d-none");
 
   setTimeout(() => {
     const user = checkUser(credentials);
@@ -26,13 +24,22 @@ formLogin.addEventListener("submit", (e) => {
       renderNavLogin(user);
       e.target.reset();
       spinnerBorderLogin.classList.add("visually-hidden");
-      window.location.href = "../index.html";
+      Swal.fire({
+        title: `Bienvenido/a ${user.firstName} ${user.lastName}`,
+        icon: "success",
+        iconColor: "#ec811c",
+        confirmButtonColor: "#ec811c",
+      }).then((result) => {
+        window.location.href = "../index.html";
+      });
     } else {
       spinnerBorderLogin.classList.add("visually-hidden");
-      messegeResponse.classList.remove("d-none");
-      messegeResponse.innerHTML = `
-      <p class="text-danger text-center m-0 py-2">Datos incorrectos</p>
-      `;
+      Swal.fire({
+        title: "Error",
+        text: "Datos incorrectos",
+        confirmButtonColor: "#e33",
+        icon: "error",
+      });
     }
   }, 1000);
 });

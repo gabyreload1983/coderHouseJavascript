@@ -1,5 +1,4 @@
 const formContact = document.querySelector("#formContact");
-const messegeResponse = document.querySelector("#messegeResponse");
 const spinnerBorderContact = document.querySelector("#spinnerBorderContact");
 class Contact {
   constructor(user) {
@@ -24,17 +23,26 @@ const validateForm = (e) => {
       message: form[3].children[1].value,
     });
 
-    messegeResponse.innerHTML = sendEmail(contact)
-      ? `<strong>${contact.firstName} ${contact.lastName}, recibimos tu mensaje con exito. </br>
-    Nos comunicaremos con usted a la brevedad.
-    </strong>`
-      : `<strong>${contact.firstName} ${contact.lastName}, no pudimos enviar tu mensaje. </br>
-    Intenta mas tarde.
-    </strong>
-    `;
+    sendEmail(contact)
+      ? Swal.fire({
+          title: "Mensaje enviado!",
+          text: `${contact.firstName} ${contact.lastName},recibimos tu mensaje con exito.
+      Nos comunicaremos con usted a la brevedad.
+      `,
+          icon: "success",
+          iconColor: "#ec811c",
+          confirmButtonColor: "#ec811c",
+        })
+      : Swal.fire({
+          title: "Error",
+          text: `${contact.firstName} ${contact.lastName},no pudimos enviar tu mensaje.
+      Intenta mas tarde.
+    `,
+          icon: "error",
+          confirmButtonColor: "#e33",
+        });
 
     e.target.reset();
-    messegeResponse.classList.remove("d-none");
     spinnerBorderContact.classList.add("visually-hidden");
   }, 1000);
 };

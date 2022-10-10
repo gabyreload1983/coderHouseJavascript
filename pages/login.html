@@ -101,6 +101,7 @@
                 aria-label="Close"
               ></button>
             </div>
+            <div class="container" id="modalDate"></div>
             <div class="modal-body">
               <table class="table">
                 <thead>
@@ -127,60 +128,16 @@
               </table>
             </div>
             <div class="modal-footer">
+              <button type="button" class="btn btn-danger" id="emptyCart">
+                Vaciar
+              </button>
               <button
                 type="button"
                 class="btn btn-primary"
                 data-bs-dismiss="modal"
                 id="confirmCart"
-                data-bs-toggle="modal"
-                data-bs-target="#paymentModal"
               >
                 Confirmar
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- payment modal -->
-      <div
-        class="modal fade"
-        id="paymentModal"
-        tabindex="-1"
-        aria-labelledby="paymentModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="paymentModalLabel">
-                Pagar con Mercadopago
-              </h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body" id="modalBodyPayment">
-              Acceder a Mercadopago
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Cerrar
-              </button>
-              <button type="button" class="btn btn-primary" id="confirmPayment">
-                <span
-                  class="spinner-border spinner-border-sm visually-hidden"
-                  role="status"
-                  aria-hidden="true"
-                  id="spinnerBorderConfirmPayment"
-                ></span>
-                Pagar
               </button>
             </div>
           </div>
@@ -231,12 +188,6 @@
                   <a href="./signup.html" class="btn btn-info">Registrarse</a>
                 </div>
               </form>
-              <div class="row justify-content-center">
-                <div
-                  class="col-lg-6 bg-light rounded d-none"
-                  id="messegeResponse"
-                ></div>
-              </div>
             </div>
           </div>
         </div>
@@ -420,6 +371,8 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.0.4/build/global/luxon.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../assets/js/navLogin.js"></script>
     <script src="../assets/js/cart.js"></script>
     <script type="module" src="../assets/js/login.js"></script>

@@ -1,30 +1,36 @@
-const { pathname } = window.location;
 const cartLink = document.querySelector("#cartLink");
 const cartCount = document.querySelector("#cartCount");
 const cartTotal = document.querySelector("#cartTotal");
+const modalDate = document.querySelector("#modalDate");
 const cartModalBody = document.querySelector("#cartTbody");
 const confirmCart = document.querySelector("#confirmCart");
-const confirmPayment = document.querySelector("#confirmPayment");
-const modalBodyPayment = document.querySelector("#modalBodyPayment");
-const spinnerBorderConfirmPayment = document.querySelector(
-  "#spinnerBorderConfirmPayment"
-);
+const emptyCart = document.querySelector("#emptyCart");
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 cartCount.innerHTML = cart.length;
+const DateTime = luxon.DateTime;
+
 const showCart = () => {
+  const now = DateTime.now();
+  modalDate.innerHTML = `
+  <h6 class="pt-2">Fecha: ${now.day}-${now.month}-${now.year}</h6>
+  `;
+
   cartModalBody.innerHTML = "";
   cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart.length
-    ? confirmCart.removeAttribute("disabled")
-    : confirmCart.setAttribute("disabled", true);
+  if (cart.length) {
+    confirmCart.removeAttribute("disabled");
+    emptyCart.removeAttribute("disabled");
+  } else {
+    confirmCart.setAttribute("disabled", true);
+    emptyCart.setAttribute("disabled", true);
+  }
+
   cart.forEach((product) => {
     const tr = document.createElement("tr");
 
     tr.innerHTML = `
         <td>  <img
-        src="${
-          pathname === "/coderHouseJavascript/index.html" ? "." : ".."
-        }/assets/images/products/${product.id}-1.jpg"
+        src="${url}/assets/images/products/${product.id}-1.jpg"
         class="imgCart"
         alt="..."
         id="imageCart-${product.id}"
@@ -70,17 +76,81 @@ const addCart = (product) => {
   cartCount.innerHTML = cart.length;
 };
 
-const processPayment = () => {
-  spinnerBorderConfirmPayment.classList.remove("visually-hidden");
+const deleteCart = () => {
+  Swal.fire({
+    title: "Estas seguro",
+    text: "Que quieres vaciar el carrito???",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#ec811c",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Vaciar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      localStorage.removeItem("cart");
+      cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cartCount.innerHTML = cart.length;
+      showCart();
+      Swal.fire({
+        title: "Carrito vacio",
+        confirmButtonColor: "#ec811c",
+        icon: "success",
+        iconColor: "#ec811c",
+      });
+    }
+  });
+};
 
-  setTimeout(() => {
-    localStorage.removeItem("cart");
-    cart = [];
-    cartCount.innerHTML = cart.length;
-    spinnerBorderConfirmPayment.classList.add("visually-hidden");
-    modalBodyPayment.innerHTML = "<h5>Pago con exito!!!</h5>";
-  }, 1500);
+const checkLogin = () => {
+  if (!userSession) {
+    Swal.fire({
+      title: "Importante!",
+      text: `Tienes que iniciar sesion para realizar la compra`,
+      icon: "info",
+      confirmButtonColor: "#ec811c",
+      iconColor: "#ec811c",
+    }).then((result) => (window.location.href = `${url}/pages/login.html`));
+  } else {
+    Swal.fire({
+      title: "Pagar con Mercadopago",
+      text: "Accediendo a tu cuenta...",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#ec811c",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Pagar!",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let timerInterval;
+        Swal.fire({
+          title: "Mercadopago",
+          html: "Estamos procesando tu pago",
+          timer: 4000,
+          timerProgressBar: true,
+          allowEscapeKey: false,
+          allowOutsideClick: false,
+          showConfirmButton: false,
+          willClose: () => {
+            clearInterval(timerInterval);
+          },
+        }).then((result) => {
+          localStorage.removeItem("cart");
+          cart = [];
+          cartCount.innerHTML = cart.length;
+          Swal.fire({
+            title: "Tu pago se realizo con exito!!!",
+            text: `Gracias por tu compra ${userSession.firstName} ${userSession.lastName}!`,
+            confirmButtonColor: "#ec811c",
+            icon: "success",
+            iconColor: "#ec811c",
+          });
+        });
+      }
+    });
+  }
 };
 
 cartLink.addEventListener("click", () => showCart());
-confirmPayment.addEventListener("click", () => processPayment());
+emptyCart.addEventListener("click", () => deleteCart());
+confirmCart.addEventListener("click", () => checkLogin());
