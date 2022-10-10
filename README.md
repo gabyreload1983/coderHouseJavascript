@@ -2,9 +2,6 @@
 
 Proyecto Final
 
-Incorporando Librerias
-
-- SweetAler2
-- Luxon
+Fetch
 
 https://gabyreload1983.github.io/coderHouseJavascript/

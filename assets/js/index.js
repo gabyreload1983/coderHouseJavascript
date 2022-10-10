@@ -1,5 +1,3 @@
-import { dataBaseDollar, dataBaseProducts } from "./dataBase.js";
-
 const productCard = document.querySelector("#productCard");
 const searchProducts = document.querySelector("#searchProducts");
 const searchList = document.querySelector("#searchList");
@@ -18,10 +16,15 @@ class Product {
   }
 }
 
+const dataBaseDollar = 160;
 const products = [];
-for (const product of dataBaseProducts) {
-  products.push(new Product(product, dataBaseDollar));
-}
+fetch("/assets/database/products.json")
+  .then((res) => res.json())
+  .then((dataBaseProducts) => {
+    for (const product of dataBaseProducts) {
+      products.push(new Product(product, dataBaseDollar));
+    }
+  });
 
 const searchProductsByDescription = (description) => {
   return products.filter((product) =>
