@@ -12,28 +12,11 @@ class Product {
   }
 }
 
-const dataBaseDollar = 160;
-const products = [];
-fetch("/assets/database/products.json")
-  .then((res) => res.json())
-  .then((dataBaseProducts) => {
-    for (const product of dataBaseProducts) {
-      products.push(new Product(product, dataBaseDollar));
-    }
-  });
-
-let dataBaseCategories = [];
-fetch("/assets/database/categories.json")
-  .then((res) => res.json())
-  .then((data) => {
-    dataBaseCategories = data;
-    sort(dataBaseCategories, "description");
-    creatListCategories(dataBaseCategories);
-  });
-
 const listProducts = document.querySelector("#listProducts");
 const listCategories = document.querySelector("#listCategories");
 const filterByPrice = document.querySelector("#filterByPrice");
+const dataBaseDollar = { value: 0 };
+const products = [];
 
 const sort = (array, key = "price", direction = "ASC") => {
   array.sort((a, b) => {
@@ -163,3 +146,22 @@ filterByPrice.addEventListener("change", (e) => {
   const orientation = e.target.value;
   orderProductsBy(orientation);
 });
+
+fetch(
+  "https://raw.githubusercontent.com/gabyreload1983/apiProducts/main/db.json"
+)
+  .then((res) => res.json())
+  .then(
+    ({
+      categories: dataBaseCategories,
+      products: dataBaseProducts,
+      dollarQuote,
+    }) => {
+      sort(dataBaseCategories, "description");
+      creatListCategories(dataBaseCategories);
+      dataBaseDollar.value = dollarQuote;
+      for (const product of dataBaseProducts) {
+        products.push(new Product(product, dataBaseDollar.value));
+      }
+    }
+  );
