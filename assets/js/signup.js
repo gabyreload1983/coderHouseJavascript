@@ -13,15 +13,13 @@ class User {
 
 const checkUserExists = (email) => {
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      fetch("/assets/database/users.json")
-        .then((res) => res.json())
-        .then((dataBaseUsers) => {
-          let user = dataBaseUsers.find((user) => user.email === email);
-          user ? resolve({ ...user, password: "" }) : resolve(false);
-        })
-        .catch((error) => console.log(error));
-    }, 2000);
+    fetch("https://my-json-server.typicode.com/gabyreload1983/apiUsers/users")
+      .then((res) => res.json())
+      .then((users) => {
+        let user = users.find((user) => user.email === email);
+        resolve(user ? true : false);
+      })
+      .catch((error) => console.log(error));
   });
 };
 
@@ -56,6 +54,8 @@ const registerInDataBase = ({
 
 formSignup.addEventListener("submit", async (e) => {
   e.preventDefault();
+  spinnerBorderSignup.classList.remove("visually-hidden");
+
   const user = new User({
     firstName: e.target[0].value,
     lastName: e.target[1].value,
@@ -64,8 +64,6 @@ formSignup.addEventListener("submit", async (e) => {
     password: e.target[4].value,
   });
   const confirmPassword = e.target[5].value;
-
-  spinnerBorderSignup.classList.remove("visually-hidden");
 
   if (user.password !== confirmPassword) {
     spinnerBorderSignup.classList.add("visually-hidden");
@@ -78,8 +76,8 @@ formSignup.addEventListener("submit", async (e) => {
     return;
   }
 
-  const validEmail = await checkUserExists(user.email);
-  if (validEmail) {
+  const exists = await checkUserExists(user.email);
+  if (exists) {
     spinnerBorderSignup.classList.add("visually-hidden");
     Swal.fire({
       title: "Error",
@@ -97,12 +95,12 @@ formSignup.addEventListener("submit", async (e) => {
     e.target.reset();
     Swal.fire({
       title: "Registro con exito!",
-      text: `${user.firstName} ${user.lastName} gracias por registrarte `,
+      text: `${response.firstName} ${response.lastName} gracias por registrarte `,
       confirmButtonColor: "#ec811c",
       icon: "success",
       iconColor: "#ec811c",
     }).then((result) => {
-      window.location.href = "../index.html";
+      window.location.href = "/";
     });
   } else {
     Swal.fire({
