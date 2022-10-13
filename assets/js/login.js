@@ -3,17 +3,15 @@ const spinnerBorderLogin = document.querySelector("#spinnerBorderLogin");
 
 const checkUser = ({ email, password }) => {
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      fetch("/assets/database/users.json")
-        .then((res) => res.json())
-        .then((dataBaseUsers) => {
-          let user = dataBaseUsers.find(
-            (user) => user.email === email && user.password === password
-          );
-          user ? resolve({ ...user, password: "" }) : resolve(false);
-        })
-        .catch((error) => console.log(error));
-    }, 2000);
+    fetch("https://my-json-server.typicode.com/gabyreload1983/apiUsers/users")
+      .then((res) => res.json())
+      .then((dataBaseUsers) => {
+        let user = dataBaseUsers.find(
+          (user) => user.email === email && user.password === password
+        );
+        user ? resolve({ ...user, password: "" }) : resolve(false);
+      })
+      .catch((error) => console.log(error));
   });
 };
 
