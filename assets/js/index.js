@@ -40,8 +40,6 @@ const renderListProducts = (keyWords) => {
 
       let linkItem = document.querySelector(`#item-${product.id}`);
       linkItem.addEventListener("click", () => {
-        const selectedProduct = productsFilter.find((p) => p.id === product.id);
-
         productCard.classList.remove("d-none");
         productCard.innerHTML = `
         <div
@@ -49,14 +47,14 @@ const renderListProducts = (keyWords) => {
         >
           <button
             class="btn btn-sm btn-outline-danger position-absolute mt-2 me-2 top-0 end-0"
-            id="close-${selectedProduct.id}"
+            id="close-${product.id}"
           >
             x
           </button>
           <div class="row g-0">
             <div class="col-12 col-lg-6">
               <img
-                src="./assets/images/products/${selectedProduct.id}-1.jpg"
+                src="./assets/images/products/${product.id}-1.jpg"
                 alt="..."
                 class="imgCart"
               />
@@ -65,20 +63,18 @@ const renderListProducts = (keyWords) => {
               class="col-12 col-lg-6 d-flex flex-column justify-content-around"
             >
               <div class="card-body">
-                <h5 class="card-title">${selectedProduct.description}</h5>
-                <p class="card-text">$${selectedProduct.priceWithTax.toFixed(
-                  2
-                )}</p>
+                <h5 class="card-title">${product.description}</h5>
+                <p class="card-text">$${product.priceWithTax.toFixed(2)}</p>
                 <p class="card-text">
                   <small class="text-muted"
-                    >stock: ${selectedProduct.stock}</small
+                    >stock: ${product.stock}</small
                   >
                 </p>
               </div>
 
               <button
                 class="btn btn-primary d-flex justify-content-center align-items-center ms-auto"
-                id="add-${selectedProduct.id}"
+                id="add-${product.id}"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -101,12 +97,12 @@ const renderListProducts = (keyWords) => {
         </div>
       `;
 
-        const addProduct = document.querySelector(`#add-${selectedProduct.id}`);
+        const addProduct = document.querySelector(`#add-${product.id}`);
         addProduct.addEventListener("click", () => {
-          addCart(selectedProduct);
+          addCart(product);
         });
 
-        const close = document.querySelector(`#close-${selectedProduct.id}`);
+        const close = document.querySelector(`#close-${product.id}`);
         close.addEventListener("click", (e) => {
           productCard.innerHTML = "";
           productCard.classList.add("d-none");
