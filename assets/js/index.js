@@ -1,7 +1,3 @@
-const productCard = document.querySelector("#productCard");
-const searchProducts = document.querySelector("#searchProducts");
-const searchList = document.querySelector("#searchList");
-
 class Product {
   constructor(product, dollar) {
     this.id = product.id;
@@ -16,15 +12,11 @@ class Product {
   }
 }
 
-const dataBaseDollar = 160;
+const productCard = document.querySelector("#productCard");
+const searchProducts = document.querySelector("#searchProducts");
+const searchList = document.querySelector("#searchList");
+const dataBaseDollar = { value: 0 };
 const products = [];
-fetch("/assets/database/products.json")
-  .then((res) => res.json())
-  .then((dataBaseProducts) => {
-    for (const product of dataBaseProducts) {
-      products.push(new Product(product, dataBaseDollar));
-    }
-  });
 
 const searchProductsByDescription = (description) => {
   return products.filter((product) =>
@@ -129,6 +121,23 @@ const renderListProducts = (keyWords) => {
     }
   }
 };
+
+const callApi = async () => {
+  try {
+    const response = await fetch(
+      "https://raw.githubusercontent.com/gabyreload1983/apiProducts/main/db.json"
+    );
+    const { products: dataBaseProducts, dollarQuote } = await response.json();
+    dataBaseDollar.value = dollarQuote;
+    for (const product of dataBaseProducts) {
+      products.push(new Product(product, dataBaseDollar.value));
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+callApi();
 
 searchProducts.addEventListener("input", (e) => {
   const keyWords = e.target.value.toUpperCase();
