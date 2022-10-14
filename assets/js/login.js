@@ -1,18 +1,19 @@
 const formLogin = document.querySelector("#formLogin");
 const spinnerBorderLogin = document.querySelector("#spinnerBorderLogin");
 
-const checkUser = ({ email, password }) => {
-  return new Promise((resolve, reject) => {
-    fetch("https://my-json-server.typicode.com/gabyreload1983/apiUsers/users")
-      .then((res) => res.json())
-      .then((dataBaseUsers) => {
-        let user = dataBaseUsers.find(
-          (user) => user.email === email && user.password === password
-        );
-        user ? resolve({ ...user, password: "" }) : resolve(false);
-      })
-      .catch((error) => console.log(error));
-  });
+const login = async ({ email, password }) => {
+  try {
+    const response = await fetch(
+      "https://raw.githubusercontent.com/gabyreload1983/apiProducts/main/db.json"
+    );
+    const { users } = await response.json();
+    let user = users.find(
+      (user) => user.email === email && user.password === password
+    );
+    return user ? { ...user, password: "" } : false;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 formLogin.addEventListener("submit", async (e) => {
@@ -21,7 +22,8 @@ formLogin.addEventListener("submit", async (e) => {
 
   spinnerBorderLogin.classList.remove("visually-hidden");
 
-  const user = await checkUser(credentials);
+  const user = await login(credentials);
+
   if (user) {
     sessionStorage.setItem("user", JSON.stringify(user));
     renderNavLogin(user);
