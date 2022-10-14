@@ -15,7 +15,6 @@ class Product {
 const listProducts = document.querySelector("#listProducts");
 const listCategories = document.querySelector("#listCategories");
 const filterByPrice = document.querySelector("#filterByPrice");
-const dataBaseDollar = { value: 0 };
 const products = [];
 
 const sort = (array, key = "price", direction = "ASC") => {
@@ -142,26 +141,25 @@ const orderProductsBy = (orientation) => {
   }
 };
 
+const callApi = async () => {
+  const response = await fetch(
+    "https://raw.githubusercontent.com/gabyreload1983/apiProducts/main/db.json"
+  );
+  const {
+    categories,
+    products: dataBaseProducts,
+    dollarQuote,
+  } = await response.json();
+  sort(categories, "description");
+  creatListCategories(categories);
+  for (const product of dataBaseProducts) {
+    products.push(new Product(product, dollarQuote));
+  }
+};
+
+callApi();
+
 filterByPrice.addEventListener("change", (e) => {
   const orientation = e.target.value;
   orderProductsBy(orientation);
 });
-
-fetch(
-  "https://raw.githubusercontent.com/gabyreload1983/apiProducts/main/db.json"
-)
-  .then((res) => res.json())
-  .then(
-    ({
-      categories: dataBaseCategories,
-      products: dataBaseProducts,
-      dollarQuote,
-    }) => {
-      sort(dataBaseCategories, "description");
-      creatListCategories(dataBaseCategories);
-      dataBaseDollar.value = dollarQuote;
-      for (const product of dataBaseProducts) {
-        products.push(new Product(product, dataBaseDollar.value));
-      }
-    }
-  );
