@@ -14,7 +14,7 @@ class User {
 const checkUserExists = async (email) => {
   try {
     const response = await fetch(
-      "https://raw.githubusercontent.com/gabyreload1983/apiProducts/main/db.json"
+      "https://raw.githubusercontent.com/gabyreload1983/apiJavascript/main/db.json"
     );
     const { users } = await response.json();
     let user = users.find((user) => user.email === email);

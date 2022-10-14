@@ -143,7 +143,7 @@ const orderProductsBy = (orientation) => {
 
 const callApi = async () => {
   const response = await fetch(
-    "https://raw.githubusercontent.com/gabyreload1983/apiProducts/main/db.json"
+    "https://raw.githubusercontent.com/gabyreload1983/apiJavascript/main/db.json"
   );
   const {
     categories,

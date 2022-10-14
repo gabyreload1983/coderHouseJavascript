@@ -121,7 +121,7 @@ const renderListProducts = (keyWords) => {
 const callApi = async () => {
   try {
     const response = await fetch(
-      "https://raw.githubusercontent.com/gabyreload1983/apiProducts/main/db.json"
+      "https://raw.githubusercontent.com/gabyreload1983/apiJavascript/main/db.json"
     );
     const { products: dataBaseProducts, dollarQuote } = await response.json();
     dataBaseDollar.value = dollarQuote;

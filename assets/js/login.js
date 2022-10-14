@@ -4,7 +4,7 @@ const spinnerBorderLogin = document.querySelector("#spinnerBorderLogin");
 const login = async ({ email, password }) => {
   try {
     const response = await fetch(
-      "https://raw.githubusercontent.com/gabyreload1983/apiProducts/main/db.json"
+      "https://raw.githubusercontent.com/gabyreload1983/apiJavascript/main/db.json"
     );
     const { users } = await response.json();
     let user = users.find(
