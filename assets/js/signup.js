@@ -11,27 +11,28 @@ class User {
   }
 }
 
-const checkUserExists = (email) => {
-  return new Promise((resolve, reject) => {
-    fetch("https://my-json-server.typicode.com/gabyreload1983/apiUsers/users")
-      .then((res) => res.json())
-      .then((users) => {
-        let user = users.find((user) => user.email === email);
-        resolve(user ? true : false);
-      })
-      .catch((error) => console.log(error));
-  });
+const checkUserExists = async (email) => {
+  try {
+    const response = await fetch(
+      "https://raw.githubusercontent.com/gabyreload1983/apiProducts/main/db.json"
+    );
+    const { users } = await response.json();
+    let user = users.find((user) => user.email === email);
+    return user ? true : false;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-const registerInDataBase = ({
+const registerInDataBase = async ({
   firstName,
   lastName,
   email,
   celphone,
   password,
 }) => {
-  return new Promise((resolve, reject) => {
-    fetch("https://jsonplaceholder.typicode.com/posts", {
+  try {
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
       method: "POST",
       body: JSON.stringify({
         firstName: firstName,
@@ -43,13 +44,12 @@ const registerInDataBase = ({
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
-    })
-      .then((response) => response.json())
-      .then((user) => {
-        resolve({ ...user, password: "" });
-      })
-      .catch((error) => console.log(error));
-  });
+    });
+    const user = await response.json();
+    return { ...user, password: "" };
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 formSignup.addEventListener("submit", async (e) => {
