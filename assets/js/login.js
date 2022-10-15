@@ -35,7 +35,7 @@ formLogin.addEventListener("submit", async (e) => {
       iconColor: "#ec811c",
       confirmButtonColor: "#ec811c",
     }).then((result) => {
-      window.location.href = "/";
+      window.location.href = "../";
     });
   } else {
     spinnerBorderLogin.classList.add("visually-hidden");

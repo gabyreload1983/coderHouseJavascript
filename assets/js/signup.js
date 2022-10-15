@@ -100,7 +100,7 @@ formSignup.addEventListener("submit", async (e) => {
       icon: "success",
       iconColor: "#ec811c",
     }).then((result) => {
-      window.location.href = "/";
+      window.location.href = "../";
     });
   } else {
     Swal.fire({
