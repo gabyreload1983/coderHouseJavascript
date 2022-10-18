@@ -82,67 +82,6 @@
           </div>
         </div>
       </nav>
-      <!-- cart -->
-      <div
-        class="modal fade modal-lg"
-        id="cartModal"
-        tabindex="-1"
-        aria-labelledby="cartModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="cartModalLabel">Mi Carrito</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="container" id="modalDate"></div>
-            <div class="modal-body">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col"></th>
-                    <th scope="col">Cantidad</th>
-                    <th scope="col" class="d-none d-lg-table-cell">
-                      Descripcion
-                    </th>
-                    <th scope="col">Precio</th>
-                    <th scope="col"></th>
-                  </tr>
-                </thead>
-                <tbody id="cartTbody"></tbody>
-                <tfoot>
-                  <tr class="table-light">
-                    <th>Total</th>
-                    <th></th>
-                    <th class="d-none d-lg-table-cell"></th>
-                    <th id="cartTotal">$0</th>
-                    <th></th>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger" id="emptyCart">
-                Vaciar
-              </button>
-              <button
-                type="button"
-                class="btn btn-primary"
-                data-bs-dismiss="modal"
-                id="confirmCart"
-              >
-                Confirmar
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
     </header>
 
     <main>
@@ -240,6 +179,69 @@
         </div>
       </div>
     </main>
+    <section>
+      <!-- cart -->
+      <div
+        class="modal fade modal-lg"
+        id="cartModal"
+        tabindex="-1"
+        aria-labelledby="cartModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="cartModalLabel">Mi Carrito</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="container" id="modalDate"></div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col" class="d-none d-lg-table-cell">
+                      Descripcion
+                    </th>
+                    <th scope="col">Precio</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody id="cartTbody"></tbody>
+                <tfoot>
+                  <tr class="table-light">
+                    <th>Total</th>
+                    <th></th>
+                    <th class="d-none d-lg-table-cell"></th>
+                    <th id="cartTotal">$0</th>
+                    <th></th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" id="emptyCart">
+                Vaciar
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+                id="confirmCart"
+              >
+                Confirmar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <footer>
       <div class="container-fluid pt-5 pb-3 bg-dark text-white">
