@@ -140,7 +140,8 @@ const checkLogin = () => {
           cartCount.innerHTML = cart.length;
           Swal.fire({
             title: "Tu pago se realizo con exito!!!",
-            text: `Gracias por tu compra ${userSession.firstName} ${userSession.lastName}!`,
+            text: `Gracias por tu compra ${userSession.firstName} ${userSession.lastName}!
+            Enviaremos tu pedido a ${userSession.address} - CP: ${userSession.cp}`,
             confirmButtonColor: "#ec811c",
             icon: "success",
             iconColor: "#ec811c",
