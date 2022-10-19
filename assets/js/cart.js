@@ -7,12 +7,14 @@ const confirmCart = document.querySelector("#confirmCart");
 const emptyCart = document.querySelector("#emptyCart");
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 cartCount.innerHTML = cart.length;
-const DateTime = luxon.DateTime;
 
 const showCart = () => {
-  const now = DateTime.now();
+  const now = new Date();
+
   modalDate.innerHTML = `
-  <h6 class="pt-2">Fecha: ${now.day}-${now.month}-${now.year}</h6>
+  <h6 class="pt-2">Fecha: ${now.getDate()}-${
+    now.getMonth() + 1
+  }-${now.getFullYear()}</h6>
   `;
 
   cartModalBody.innerHTML = "";
