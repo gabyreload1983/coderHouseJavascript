@@ -7,12 +7,14 @@ const confirmCart = document.querySelector("#confirmCart");
 const emptyCart = document.querySelector("#emptyCart");
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 cartCount.innerHTML = cart.length;
-const DateTime = luxon.DateTime;
 
 const showCart = () => {
-  const now = DateTime.now();
+  const now = new Date();
+
   modalDate.innerHTML = `
-  <h6 class="pt-2">Fecha: ${now.day}-${now.month}-${now.year}</h6>
+  <h6 class="pt-2">Fecha: ${now.getDate()}-${
+    now.getMonth() + 1
+  }-${now.getFullYear()}</h6>
   `;
 
   cartModalBody.innerHTML = "";
@@ -101,7 +103,7 @@ const deleteCart = () => {
   });
 };
 
-const checkLogin = () => {
+const checkLogin = async () => {
   if (!userSession) {
     Swal.fire({
       title: "Importante!",
@@ -111,7 +113,7 @@ const checkLogin = () => {
       iconColor: "#ec811c",
     }).then((result) => (window.location.href = `${url}/pages/login.html`));
   } else {
-    Swal.fire({
+    const response = await Swal.fire({
       title: "Pagar con Mercadopago",
       text: "Accediendo a tu cuenta...",
       icon: "warning",
@@ -120,34 +122,46 @@ const checkLogin = () => {
       cancelButtonColor: "#d33",
       confirmButtonText: "Pagar!",
       cancelButtonText: "Cancelar",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        let timerInterval;
-        Swal.fire({
-          title: "Mercadopago",
-          html: "Estamos procesando tu pago",
-          timer: 4000,
-          timerProgressBar: true,
-          allowEscapeKey: false,
-          allowOutsideClick: false,
-          showConfirmButton: false,
-          willClose: () => {
-            clearInterval(timerInterval);
-          },
-        }).then((result) => {
-          localStorage.removeItem("cart");
-          cart = [];
-          cartCount.innerHTML = cart.length;
+    });
+    if (response.isConfirmed) {
+      Swal.fire({
+        title: "Procesando pago...",
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      });
+      try {
+        const serviceID = "default_service";
+        const templateID = "template_n0u9roi";
+
+        const result = await emailjs.send(serviceID, templateID, userSession);
+        if (result) {
           Swal.fire({
             title: "Tu pago se realizo con exito!!!",
-            text: `Gracias por tu compra ${userSession.firstName} ${userSession.lastName}!`,
+            text: `Gracias por tu compra ${userSession.firstName} ${userSession.lastName}!
+              Te enviamos un email para coordinar el envio.`,
             confirmButtonColor: "#ec811c",
             icon: "success",
             iconColor: "#ec811c",
           });
+          localStorage.removeItem("cart");
+          cart = [];
+          cartCount.innerHTML = cart.length;
+        }
+      } catch (error) {
+        console.log(error);
+        Swal.fire({
+          title: "Error",
+          text: `${userSession.firstName} ${userSession.lastName}, hubo un problema.
+             Intenta mas tarde.`,
+          icon: "error",
+          confirmButtonColor: "#e33",
         });
       }
-    });
+    }
   }
 };
 

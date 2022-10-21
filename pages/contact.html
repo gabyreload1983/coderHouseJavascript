@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../assets/css/styles.css" />
   </head>
   <body>
-    <header>
+    <header class="sticky-top">
       <div class="container-fluid bg-secondary">
         <div class="row justify-content-center">
           <div class="col">
@@ -82,6 +82,84 @@
           </div>
         </div>
       </nav>
+    </header>
+
+    <main>
+      <div class="container-fluid" id="contact">
+        <div class="container py-5">
+          <div class="row justify-content-center">
+            <div class="col-lg-6 bg-secondary rounded p-3 formContact">
+              <h2 class="text-center">Contactanos</h2>
+              <form id="formContact">
+                <div class="mb-3">
+                  <label for="firtsName" class="form-label text-white"
+                    >Nombre</label
+                  >
+                  <input
+                    required
+                    type="text"
+                    class="form-control bg-transparent text-white"
+                    id="firtsName"
+                    name="firtsName"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="lastName" class="form-label text-white"
+                    >Apellido</label
+                  >
+                  <input
+                    required
+                    type="text"
+                    class="form-control bg-transparent text-white"
+                    id="lastName"
+                    name="lastName"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label text-white">Email</label>
+                  <input
+                    required
+                    type="email"
+                    class="form-control bg-transparent text-white"
+                    id="email"
+                    name="email"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="message" class="form-label text-white"
+                    >Mensaje</label
+                  >
+                  <textarea
+                    required
+                    class="form-control bg-transparent text-white"
+                    id="message"
+                    name="message"
+                    rows="6"
+                  ></textarea>
+                </div>
+                <div class="d-flex">
+                  <button type="submit" class="btn btn-primary me-3">
+                    <span
+                      class="spinner-border spinner-border-sm visually-hidden"
+                      role="status"
+                      aria-hidden="true"
+                      id="spinnerBorderContact"
+                    ></span>
+                    Enviar
+                  </button>
+                  <div
+                    class="spinner-border text-primary visually-hidden"
+                    role="status"
+                  ></div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <section>
       <!-- cart -->
       <div
         class="modal fade modal-lg"
@@ -143,82 +221,7 @@
           </div>
         </div>
       </div>
-    </header>
-
-    <main>
-      <div class="container-fluid" id="contact">
-        <div class="container py-5">
-          <div class="row justify-content-center">
-            <div class="col-lg-6 bg-secondary rounded p-3 formContact">
-              <h2 class="text-center">Contactanos</h2>
-              <form id="formContact">
-                <div class="mb-3">
-                  <label for="firtsName" class="form-label text-white"
-                    >Nombre</label
-                  >
-                  <input
-                    required
-                    type="text"
-                    class="form-control bg-transparent text-white"
-                    id="firtsName"
-                    name="firtsName"
-                  />
-                </div>
-                <div class="mb-3">
-                  <label for="lastName" class="form-label text-white"
-                    >Apellido</label
-                  >
-                  <input
-                    required
-                    type="text"
-                    class="form-control bg-transparent text-white"
-                    id="lastName"
-                    name="lastName"
-                  />
-                </div>
-                <div class="mb-3">
-                  <label for="email" class="form-label text-white">Email</label>
-                  <input
-                    required
-                    type="email"
-                    class="form-control bg-transparent text-white"
-                    id="email"
-                    name="email"
-                  />
-                </div>
-
-                <div class="mb-3">
-                  <label for="message" class="form-label text-white"
-                    >Mensaje</label
-                  >
-                  <textarea
-                    required
-                    class="form-control bg-transparent text-white"
-                    id="message"
-                    rows="6"
-                  ></textarea>
-                </div>
-                <div class="d-flex">
-                  <button type="submit" class="btn btn-primary me-3">
-                    <span
-                      class="spinner-border spinner-border-sm visually-hidden"
-                      role="status"
-                      aria-hidden="true"
-                      id="spinnerBorderContact"
-                    ></span>
-                    Enviar
-                  </button>
-                  <div
-                    class="spinner-border text-primary visually-hidden"
-                    role="status"
-                  ></div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
+    </section>
 
     <footer>
       <div class="container-fluid pt-5 pb-3 bg-dark text-white">
@@ -397,8 +400,17 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
-    <script src="https://cdn.jsdelivr.net/npm/luxon@3.0.4/build/global/luxon.min.js"></script>
+
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+    ></script>
+    <script type="text/javascript">
+      emailjs.init("bBJm46Bx61Edv0zVi");
+    </script>
+
     <script src="../assets/js/navLogin.js"></script>
     <script src="../assets/js/cart.js"></script>
     <script src="../assets/js/contact.js"></script>

@@ -8414,8 +8414,6 @@ footer .nav-link:hover {
   margin-right: auto;
   z-index: 5;
   padding: 15px; }
-  #main #productCard .imgCart {
-    width: 100%; }
 
 #main #main-banner {
   height: 91vh; }
@@ -8433,14 +8431,8 @@ footer .nav-link:hover {
     #main #main-banner #searchProducts:focus:focus-visible {
       outline: unset; }
 
-#main .main-destacados {
-  opacity: 0.7; }
-  #main .main-destacados:hover {
-    opacity: 1; }
-  #main .main-destacados .img-section {
-    height: 100%;
-    width: 100%;
-    object-fit: cover; }
+#cardModal .imgCard {
+  width: 100%; }
 
 #containerProducts .card {
   height: 100%; }

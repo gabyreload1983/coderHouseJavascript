@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../assets/css/styles.css" />
   </head>
   <body>
-    <header>
+    <header class="sticky-top">
       <div class="container-fluid bg-secondary">
         <div class="row justify-content-center">
           <div class="col">
@@ -82,67 +82,6 @@
           </div>
         </div>
       </nav>
-      <!-- cart -->
-      <div
-        class="modal fade modal-lg"
-        id="cartModal"
-        tabindex="-1"
-        aria-labelledby="cartModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="cartModalLabel">Mi Carrito</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="container" id="modalDate"></div>
-            <div class="modal-body">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col"></th>
-                    <th scope="col">Cantidad</th>
-                    <th scope="col" class="d-none d-lg-table-cell">
-                      Descripcion
-                    </th>
-                    <th scope="col">Precio</th>
-                    <th scope="col"></th>
-                  </tr>
-                </thead>
-                <tbody id="cartTbody"></tbody>
-                <tfoot>
-                  <tr class="table-light">
-                    <th>Total</th>
-                    <th></th>
-                    <th class="d-none d-lg-table-cell"></th>
-                    <th id="cartTotal">$0</th>
-                    <th></th>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger" id="emptyCart">
-                Vaciar
-              </button>
-              <button
-                type="button"
-                class="btn btn-primary"
-                data-bs-dismiss="modal"
-                id="confirmCart"
-              >
-                Confirmar
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
     </header>
 
     <main>
@@ -176,6 +115,33 @@
                     name="lastName"
                   />
                 </div>
+
+                <div class="mb-3">
+                  <label for="address" class="form-label text-white"
+                    >Direccion</label
+                  >
+                  <input
+                    required
+                    type="text"
+                    class="form-control bg-transparent text-white"
+                    id="address"
+                    name="address"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="cp" class="form-label text-white"
+                    >Codigo Postal</label
+                  >
+                  <input
+                    required
+                    type="number"
+                    class="form-control bg-transparent text-white"
+                    id="cp"
+                    name="cp"
+                  />
+                </div>
+
                 <div class="mb-3">
                   <label for="celphone" class="form-label text-white"
                     >Celular</label
@@ -240,6 +206,69 @@
         </div>
       </div>
     </main>
+    <section>
+      <!-- cart -->
+      <div
+        class="modal fade modal-lg"
+        id="cartModal"
+        tabindex="-1"
+        aria-labelledby="cartModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="cartModalLabel">Mi Carrito</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="container" id="modalDate"></div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col" class="d-none d-lg-table-cell">
+                      Descripcion
+                    </th>
+                    <th scope="col">Precio</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody id="cartTbody"></tbody>
+                <tfoot>
+                  <tr class="table-light">
+                    <th>Total</th>
+                    <th></th>
+                    <th class="d-none d-lg-table-cell"></th>
+                    <th id="cartTotal">$0</th>
+                    <th></th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" id="emptyCart">
+                Vaciar
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+                id="confirmCart"
+              >
+                Confirmar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <footer>
       <div class="container-fluid pt-5 pb-3 bg-dark text-white">
@@ -418,8 +447,17 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
-    <script src="https://cdn.jsdelivr.net/npm/luxon@3.0.4/build/global/luxon.min.js"></script>
+
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+    ></script>
+    <script type="text/javascript">
+      emailjs.init("bBJm46Bx61Edv0zVi");
+    </script>
+
     <script src="../assets/js/navLogin.js"></script>
     <script src="../assets/js/cart.js"></script>
     <script type="module" src="../assets/js/signup.js"></script>

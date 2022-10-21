@@ -1,12 +1,21 @@
-import {
-  dataBaseCategories,
-  dataBaseDollar,
-  dataBaseProducts,
-} from "./dataBase.js";
+class Product {
+  constructor(product, dollar) {
+    this.id = product.id;
+    this.description = product.description;
+    this.brand = product.brand;
+    this.category = product.category;
+    this.price = product.price * dollar;
+    this.tax = product.tax;
+    this.priceWithTax = product.price * dollar * product.tax;
+    this.stock = product.stock;
+    this.quantity = 0;
+  }
+}
 
 const listProducts = document.querySelector("#listProducts");
 const listCategories = document.querySelector("#listCategories");
 const filterByPrice = document.querySelector("#filterByPrice");
+const products = [];
 
 const sort = (array, key = "price", direction = "ASC") => {
   array.sort((a, b) => {
@@ -132,29 +141,25 @@ const orderProductsBy = (orientation) => {
   }
 };
 
-class Product {
-  constructor(product, dollar) {
-    this.id = product.id;
-    this.description = product.description;
-    this.brand = product.brand;
-    this.category = product.category;
-    this.price = product.price * dollar;
-    this.tax = product.tax;
-    this.priceWithTax = product.price * dollar * product.tax;
-    this.stock = product.stock;
-    this.quantity = 0;
+const callApi = async () => {
+  const response = await fetch(
+    "https://raw.githubusercontent.com/gabyreload1983/apiJavascript/main/db.json"
+  );
+  const {
+    categories,
+    products: dataBaseProducts,
+    dollarQuote,
+  } = await response.json();
+  sort(categories, "description");
+  creatListCategories(categories);
+  for (const product of dataBaseProducts) {
+    products.push(new Product(product, dollarQuote));
   }
-}
+};
 
-const products = [];
-for (const product of dataBaseProducts) {
-  products.push(new Product(product, dataBaseDollar));
-}
+callApi();
 
 filterByPrice.addEventListener("change", (e) => {
   const orientation = e.target.value;
   orderProductsBy(orientation);
 });
-
-sort(dataBaseCategories, "description");
-creatListCategories(dataBaseCategories);

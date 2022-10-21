@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../assets/css/styles.css" />
   </head>
   <body>
-    <header>
+    <header class="sticky-top">
       <div class="container-fluid bg-secondary">
         <div class="row justify-content-center">
           <div class="col">
@@ -82,6 +82,33 @@
           </div>
         </div>
       </nav>
+    </header>
+
+    <main>
+      <div class="container-fluid bg-secondary py-5">
+        <div class="row justify-content-center" id="containerProducts">
+          <div class="col-12 col-md-3 col-lg-2">
+            <h3>Ordenar</h3>
+            <select
+              id="filterByPrice"
+              class="form-select-sm m-0 me-auto mb-3 pe-3"
+            >
+              <option selected value="ASC">Precios Asc</option>
+              <option value="DEC">Precios Dec</option>
+            </select>
+            <h3>Categorias</h3>
+            <ul
+              class="navbar-nav me-auto mb-2 mb-lg-0"
+              id="listCategories"
+            ></ul>
+          </div>
+          <div class="col-12 col-md-9 col-lg-10">
+            <div class="row" id="listProducts"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <section>
       <!-- cart -->
       <div
         class="modal fade modal-lg"
@@ -143,32 +170,7 @@
           </div>
         </div>
       </div>
-    </header>
-
-    <main>
-      <div class="container-fluid bg-secondary py-5">
-        <div class="row justify-content-center" id="containerProducts">
-          <div class="col-12 col-md-3 col-lg-2">
-            <h3>Ordenar</h3>
-            <select
-              id="filterByPrice"
-              class="form-select-sm m-0 me-auto mb-3 pe-3"
-            >
-              <option selected value="ASC">Precios Asc</option>
-              <option value="DEC">Precios Dec</option>
-            </select>
-            <h3>Categorias</h3>
-            <ul
-              class="navbar-nav me-auto mb-2 mb-lg-0"
-              id="listCategories"
-            ></ul>
-          </div>
-          <div class="col-12 col-md-9 col-lg-10">
-            <div class="row" id="listProducts"></div>
-          </div>
-        </div>
-      </div>
-    </main>
+    </section>
 
     <footer>
       <div class="container-fluid pt-5 pb-3 bg-dark text-white">
@@ -347,8 +349,17 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
-    <script src="https://cdn.jsdelivr.net/npm/luxon@3.0.4/build/global/luxon.min.js"></script>
+
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+    ></script>
+    <script type="text/javascript">
+      emailjs.init("bBJm46Bx61Edv0zVi");
+    </script>
+
     <script src="../assets/js/navLogin.js"></script>
     <script src="../assets/js/cart.js"></script>
     <script type="module" src="../assets/js/products.js"></script>
