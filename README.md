@@ -2,19 +2,7 @@
 
 Proyecto Final - Gabriel Godoy - Comisión 44465
 
-Fetch
-
-## emailjs
-
-para el envio de formulario de contacto y al confirmar compra
-
-## jsonplaceholder
-
-para realizar post al crear ticket en asistencia tecnica y al registrar usuario.
-
-## raw github
-
-se consulta json con usuarios, productos, categorias y cotizacion del dolar
+Al clonar el repo en una terminal, se debe correr index.html con liveserver.
 
 Link de la pagina en github
 https://gabyreload1983.github.io/coderHouseJavascript/
